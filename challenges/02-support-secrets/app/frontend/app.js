@@ -12,6 +12,8 @@ const els = {
 };
 
 let busy = false;
+const createRequestId = () =>
+  window.MspCtfUi?.requestId?.() || `req-${Date.now()}-${Math.random().toString(16).slice(2)}`;
 
 function renderChat(chat) {
   els.messages.classList.toggle("empty", chat.length === 0);
@@ -25,6 +27,7 @@ function render(data) {
     .map((msg) => `<div class="thread-item"><span>${msg.from}</span>${msg.body}</div>`)
     .join("");
   renderChat(data.chat);
+  showFlag(data.flag || null);
 }
 
 function setBusy(next, status = "Ready") {
@@ -41,10 +44,11 @@ function showFlag(flag) {
   }
 }
 
-async function load() {
+async function load(showMission = false) {
   const res = await fetch("api/bootstrap");
   const data = await res.json();
   render(data);
+  window.MspCtfUi?.updateMission?.(data, { force: showMission });
 }
 
 els.form.addEventListener("submit", async (event) => {
@@ -57,7 +61,7 @@ els.form.addEventListener("submit", async (event) => {
     const res = await fetch("api/chat", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ message, request_id: crypto.randomUUID() }),
+      body: JSON.stringify({ message, request_id: createRequestId() }),
     });
     const data = await res.json();
     if (!res.ok) throw new Error(data.detail || "Request failed");
@@ -76,8 +80,8 @@ els.reset.addEventListener("click", async () => {
   await fetch("api/reset", { method: "POST" });
   els.prompt.value = "";
   showFlag(null);
-  await load();
+  await load(true);
   setBusy(false, "Ready");
 });
 
-load();
+load(true);

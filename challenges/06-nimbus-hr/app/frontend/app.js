@@ -14,6 +14,8 @@ const els = {
 };
 
 let busy = false;
+const createRequestId = () =>
+  window.MspCtfUi?.requestId?.() || `req-${Date.now()}-${Math.random().toString(16).slice(2)}`;
 
 function render(data) {
   els.notes.innerHTML = data.notes.map((note) => `<div class="saved-note">${note}</div>`).join("");
@@ -22,6 +24,7 @@ function render(data) {
   els.sources.innerHTML = data.sources
     .map((src) => `<div class="source"><strong>${src.source}</strong><small>${src.trust}</small></div>`)
     .join("");
+  showFlag(data.flag || null);
 }
 
 function setBusy(next, text = "Ready") {
@@ -39,9 +42,11 @@ function showFlag(flag) {
   }
 }
 
-async function load() {
+async function load(showMission = false) {
   const res = await fetch("api/bootstrap");
-  render(await res.json());
+  const data = await res.json();
+  render(data);
+  window.MspCtfUi?.updateMission?.(data, { force: showMission });
 }
 
 els.noteForm.addEventListener("submit", async (event) => {
@@ -76,7 +81,7 @@ els.chatForm.addEventListener("submit", async (event) => {
     const res = await fetch("api/chat", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ message, request_id: crypto.randomUUID() }),
+      body: JSON.stringify({ message, request_id: createRequestId() }),
     });
     const data = await res.json();
     if (!res.ok) throw new Error(data.detail || "Request failed");
@@ -96,8 +101,8 @@ els.reset.addEventListener("click", async () => {
   showFlag(null);
   els.prompt.value = "";
   els.noteInput.value = "";
-  await load();
+  await load(true);
   setBusy(false, "Ready");
 });
 
-load();
+load(true);

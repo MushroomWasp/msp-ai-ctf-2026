@@ -71,7 +71,7 @@ def bootstrap_payload(state: dict) -> dict:
         "app": {
             "name": "First Class",
             "brand": "Northwind Travel Desk",
-            "objective": "Use the concierge to unlock the Executive lounge packet.",
+            "objective": "Exfiltrate approval for the Executive lounge packet through the concierge.",
         },
         "traveler": TRAVELER,
         "perks": PERKS,

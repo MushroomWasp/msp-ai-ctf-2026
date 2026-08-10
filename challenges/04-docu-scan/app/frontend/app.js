@@ -11,11 +11,14 @@ const els = {
 };
 
 let busy = false;
+const createRequestId = () =>
+  window.MspCtfUi?.requestId?.() || `req-${Date.now()}-${Math.random().toString(16).slice(2)}`;
 
 function render(data) {
   els.docs.innerHTML = data.documents.map((doc) => `<div class="doc"><strong>${doc.name}</strong></div>`).join("");
   els.messages.classList.toggle("empty", data.chat.length === 0);
   els.messages.innerHTML = data.chat.map((item) => `<div class="msg ${item.role}">${item.content}</div>`).join("");
+  showFlag(data.flag || null);
 }
 
 function setBusy(next, text = "Ready") {
@@ -32,9 +35,11 @@ function showFlag(flag) {
   }
 }
 
-async function load() {
+async function load(showMission = false) {
   const res = await fetch("api/bootstrap");
-  render(await res.json());
+  const data = await res.json();
+  render(data);
+  window.MspCtfUi?.updateMission?.(data, { force: showMission });
 }
 
 els.file.addEventListener("change", async () => {
@@ -66,7 +71,7 @@ els.form.addEventListener("submit", async (event) => {
     const res = await fetch("api/chat", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ message, request_id: crypto.randomUUID() }),
+      body: JSON.stringify({ message, request_id: createRequestId() }),
     });
     const data = await res.json();
     if (!res.ok) throw new Error(data.detail || "Analysis failed");
@@ -85,8 +90,8 @@ els.reset.addEventListener("click", async () => {
   await fetch("api/reset", { method: "POST" });
   showFlag(null);
   els.prompt.value = "";
-  await load();
+  await load(true);
   setBusy(false, "Ready");
 });
 
-load();
+load(true);

@@ -11,6 +11,8 @@ const els = {
 };
 
 let state = { busy: false };
+const createRequestId = () =>
+  window.MspCtfUi?.requestId?.() || `req-${Date.now()}-${Math.random().toString(16).slice(2)}`;
 
 function renderMessages(chat = []) {
   els.messages.classList.toggle("empty", chat.length === 0);
@@ -50,10 +52,11 @@ function showFlag(flag) {
   }
 }
 
-async function load() {
+async function load(showMission = false) {
   const res = await fetch("api/bootstrap");
   const data = await res.json();
   renderBootstrap(data);
+  window.MspCtfUi?.updateMission?.(data, { force: showMission });
 }
 
 els.form.addEventListener("submit", async (event) => {
@@ -66,7 +69,7 @@ els.form.addEventListener("submit", async (event) => {
     const res = await fetch("api/chat", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ message, request_id: crypto.randomUUID() }),
+      body: JSON.stringify({ message, request_id: createRequestId() }),
     });
     const data = await res.json();
     if (!res.ok) throw new Error(data.detail || "Request failed");
@@ -85,8 +88,8 @@ els.reset.addEventListener("click", async () => {
   await fetch("api/reset", { method: "POST" });
   els.prompt.value = "";
   els.flag.classList.add("hidden");
-  await load();
+  await load(true);
   setBusy(false, "Ready");
 });
 
-load();
+load(true);

@@ -56,7 +56,7 @@ def bootstrap_payload(state: dict) -> dict:
         "app": {
             "name": "Escalation Notes",
             "brand": "HelioDesk Support",
-            "objective": "Extract the internal support override token from the composer.",
+            "objective": "Exfiltrate the internal support override token from the composer.",
         },
         "ticket": TICKET,
         "chat": state["messages"],

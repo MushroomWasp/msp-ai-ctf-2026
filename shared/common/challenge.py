@@ -8,7 +8,7 @@ from pathlib import Path
 from typing import Any
 
 from fastapi import FastAPI, File, HTTPException, Request, Response, UploadFile
-from fastapi.responses import FileResponse
+from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
@@ -26,6 +26,206 @@ class ChatRequest(BaseModel):
 class UploadResponse(BaseModel):
     ok: bool
     filename: str
+
+
+MISSION_HELPER_SCRIPT = """
+<script>
+(() => {
+  if (window.MspCtfUi) return;
+
+  const state = { shown: false, latest: null };
+
+  function fallbackRequestId() {
+    return `req-${Date.now()}-${Math.random().toString(16).slice(2)}`;
+  }
+
+  function requestId() {
+    if (globalThis.crypto && typeof globalThis.crypto.randomUUID === "function") {
+      return globalThis.crypto.randomUUID();
+    }
+    return fallbackRequestId();
+  }
+
+  function ensureUi() {
+    if (document.getElementById("mspMissionOverlay")) return;
+
+    const style = document.createElement("style");
+    style.textContent = `
+      body.msp-mission-open { overflow: hidden; }
+      .msp-mission-fab {
+        position: fixed;
+        right: 18px;
+        bottom: 18px;
+        z-index: 60;
+        width: auto !important;
+        margin: 0 !important;
+        border: 0 !important;
+        border-radius: 999px !important;
+        padding: 12px 16px !important;
+        background: #111827 !important;
+        color: #fff !important;
+        box-shadow: 0 16px 42px rgba(15, 23, 42, 0.28);
+        font: inherit;
+        cursor: pointer;
+      }
+      .msp-mission-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 70;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        background: rgba(15, 23, 42, 0.48);
+        backdrop-filter: blur(6px);
+      }
+      .msp-mission-overlay.show { display: flex; }
+      .msp-mission-card {
+        width: min(580px, 100%);
+        background: #fff;
+        color: #0f172a;
+        border-radius: 24px;
+        padding: 24px;
+        box-shadow: 0 28px 80px rgba(15, 23, 42, 0.26);
+      }
+      .msp-mission-kicker {
+        margin: 0 0 8px;
+        font-size: 0.8rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: #64748b;
+      }
+      .msp-mission-card h2 {
+        margin: 0 0 10px;
+        font-size: 1.95rem;
+        line-height: 1.08;
+      }
+      .msp-mission-brand {
+        margin: 0 0 14px;
+        color: #334155;
+        line-height: 1.5;
+      }
+      .msp-mission-callout {
+        margin: 0 0 16px;
+        padding: 16px 18px;
+        border-radius: 18px;
+        border: 1px solid #dbe4f0;
+        background: #f8fafc;
+      }
+      .msp-mission-callout strong {
+        display: block;
+        margin-bottom: 6px;
+        color: #0f172a;
+      }
+      .msp-mission-callout p,
+      .msp-mission-note {
+        margin: 0;
+        color: #334155;
+        line-height: 1.6;
+      }
+      .msp-mission-note { margin-top: 16px; }
+      .msp-mission-actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 12px;
+        margin-top: 22px;
+      }
+      .msp-mission-actions button {
+        width: auto !important;
+        margin: 0 !important;
+        border: 0 !important;
+        border-radius: 14px !important;
+        padding: 12px 16px !important;
+        background: #0f172a !important;
+        color: #fff !important;
+        font: inherit;
+        cursor: pointer;
+      }
+      @media (max-width: 640px) {
+        .msp-mission-card { padding: 20px; border-radius: 20px; }
+        .msp-mission-card h2 { font-size: 1.55rem; }
+        .msp-mission-fab { right: 14px; bottom: 14px; }
+      }
+    `;
+    document.head.appendChild(style);
+
+    const fab = document.createElement("button");
+    fab.id = "mspMissionFab";
+    fab.type = "button";
+    fab.className = "msp-mission-fab";
+    fab.textContent = "Mission";
+    fab.addEventListener("click", () => {
+      if (state.latest) openMission(state.latest);
+    });
+    document.body.appendChild(fab);
+
+    const overlay = document.createElement("div");
+    overlay.id = "mspMissionOverlay";
+    overlay.className = "msp-mission-overlay";
+    overlay.innerHTML = `
+      <div class="msp-mission-card" role="dialog" aria-modal="true" aria-labelledby="mspMissionTitle">
+        <p class="msp-mission-kicker">Mission Briefing</p>
+        <h2 id="mspMissionTitle"></h2>
+        <p id="mspMissionBrand" class="msp-mission-brand"></p>
+        <div class="msp-mission-callout">
+          <strong>Objective</strong>
+          <p id="mspMissionObjective"></p>
+        </div>
+        <p class="msp-mission-note">
+          Use the in-app controls already on this page. When you trigger the vulnerable AI workflow successfully,
+          the app will reveal the challenge flag.
+        </p>
+        <div class="msp-mission-actions">
+          <button type="button" data-close-mission>Start Challenge</button>
+        </div>
+      </div>
+    `;
+    overlay.addEventListener("click", (event) => {
+      if (event.target === overlay || event.target.closest("[data-close-mission]")) {
+        closeMission();
+      }
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeMission();
+    });
+    document.body.appendChild(overlay);
+  }
+
+  function openMission(data) {
+    state.latest = data;
+    ensureUi();
+    document.getElementById("mspMissionTitle").textContent = data?.app?.name || "Challenge";
+    document.getElementById("mspMissionBrand").textContent = data?.app?.brand || "";
+    document.getElementById("mspMissionObjective").textContent =
+      data?.app?.objective || "Interact with the application until you can reach the protected target.";
+    document.getElementById("mspMissionOverlay").classList.add("show");
+    document.body.classList.add("msp-mission-open");
+  }
+
+  function closeMission() {
+    const overlay = document.getElementById("mspMissionOverlay");
+    if (overlay) overlay.classList.remove("show");
+    document.body.classList.remove("msp-mission-open");
+  }
+
+  function updateMission(data, options = {}) {
+    state.latest = data;
+    ensureUi();
+    if (options.force || !state.shown) {
+      openMission(data);
+      state.shown = true;
+    }
+  }
+
+  window.MspCtfUi = {
+    requestId,
+    updateMission,
+    openMission: () => state.latest && openMission(state.latest),
+    closeMission,
+  };
+})();
+</script>
+""".strip()
 
 
 class ChallengeRuntime:
@@ -80,8 +280,15 @@ class ChallengeRuntime:
             await self.store.init()
 
         @app.get("/")
-        async def index() -> FileResponse:
-            return FileResponse(self.frontend_dir / "index.html")
+        async def index() -> HTMLResponse:
+            html = (self.frontend_dir / "index.html").read_text(encoding="utf-8")
+            if "</head>" in html:
+                html = html.replace("</head>", f"{MISSION_HELPER_SCRIPT}\n</head>")
+            elif "</body>" in html:
+                html = html.replace("</body>", f"{MISSION_HELPER_SCRIPT}\n</body>")
+            else:
+                html = f"{html}\n{MISSION_HELPER_SCRIPT}"
+            return HTMLResponse(html)
 
         @app.get("/health")
         async def health() -> dict[str, str]:

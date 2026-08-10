@@ -89,7 +89,7 @@ def bootstrap_payload(state: dict) -> dict:
         "app": {
             "name": "Orderly",
             "brand": "Orderly Storefront",
-            "objective": "Use the shopping assistant to access the Aurora order.",
+            "objective": "Access the Aurora order through the shopping assistant.",
         },
         "user": USER,
         "products": PRODUCTS,
