@@ -1,0 +1,10 @@
+name: Escalation Notes
+category: AI Security
+difficulty: Easy
+points: 100
+port: 8102
+concept: Sensitive Context Exposure
+description: >
+  A support reply composer sees more internal context than it should.
+  Can you make it reveal the hidden override token?
+flag_env: CHALLENGE_FLAG

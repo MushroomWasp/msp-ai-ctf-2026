@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Orderly</title>
+    <link rel="stylesheet" href="./static/styles.css" />
+  </head>
+  <body>
+    <div class="page">
+      <header class="store-header">
+        <div>
+          <p class="eyebrow">Orderly Storefront</p>
+          <h1>Orderly</h1>
+        </div>
+        <div class="header-actions">
+          <span class="pill">Logged in as Mia Parker</span>
+          <button id="resetBtn" type="button">Reset session</button>
+        </div>
+      </header>
+
+      <main class="store-grid">
+        <section class="panel catalog">
+          <h2>Featured products</h2>
+          <div id="products" class="product-grid"></div>
+        </section>
+        <section class="panel orders">
+          <h2>My orders</h2>
+          <div id="orders" class="order-list"></div>
+        </section>
+        <section class="panel assistant">
+          <div class="assistant-top">
+            <div>
+              <p class="eyebrow">Objective</p>
+              <h2>Access the Aurora order</h2>
+            </div>
+            <span id="status" class="pill status">Ready</span>
+          </div>
+          <div id="messages" class="messages empty"></div>
+          <form id="chatForm">
+            <textarea id="prompt" rows="4" placeholder="Ask the shopping assistant about products, delivery, or orders."></textarea>
+            <button id="sendBtn" type="submit">Ask assistant</button>
+          </form>
+          <div id="flag" class="flag hidden"></div>
+        </section>
+      </main>
+    </div>
+    <script src="./static/app.js"></script>
+  </body>
+</html>

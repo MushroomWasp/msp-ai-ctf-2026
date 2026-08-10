@@ -1,0 +1,49 @@
+body {
+  margin: 0;
+  font-family: "Lucida Grande", "Segoe UI", sans-serif;
+  background: #eef1f4;
+  color: #18212a;
+}
+.shell { max-width: 1120px; margin: 0 auto; padding: 24px 18px 42px; }
+.topbar, .agent-head {
+  display: flex; justify-content: space-between; align-items: start; gap: 16px;
+}
+.eyebrow { margin: 0 0 6px; text-transform: uppercase; letter-spacing: 0.12em; color: #657383; font-size: 0.78rem; }
+h1 { margin: 0; font-size: 2.5rem; }
+.grid { display: grid; grid-template-columns: 320px 1fr; gap: 18px; margin-top: 18px; }
+.panel {
+  background: white; border: 1px solid #d3dae2; border-radius: 22px; padding: 22px;
+}
+.identity {
+  font-size: 1.8rem; font-weight: 700; margin-bottom: 14px;
+}
+.callout, .notice, .status {
+  padding: 12px 14px; border-radius: 14px; background: #f4f7fa; border: 1px solid #dbe2ea; color: #334252;
+}
+.notice { margin-top: 12px; }
+.messages {
+  min-height: 230px; max-height: 360px; overflow: auto; display: grid; gap: 12px; margin: 18px 0;
+}
+.messages.empty::before { content: "No workflow has run yet."; color: #657383; }
+.msg {
+  padding: 14px 16px; border-radius: 16px; line-height: 1.45; white-space: pre-wrap;
+}
+.msg.user { background: #2f5b79; color: white; margin-left: auto; max-width: 82%; }
+.msg.assistant { background: #f4f7fa; border: 1px solid #dbe2ea; max-width: 84%; }
+textarea, button {
+  width: 100%; border-radius: 16px; border: 1px solid #c4ced8; font: inherit;
+}
+textarea { min-height: 130px; padding: 14px; resize: vertical; }
+button {
+  margin-top: 12px; padding: 12px 16px; background: #18212a; color: white; cursor: pointer;
+}
+button[disabled] { opacity: 0.6; cursor: wait; }
+.flag {
+  margin-top: 16px; padding: 14px; border-radius: 16px; white-space: pre-wrap;
+  border: 1px solid #8fc29e; background: #ebf7ef; color: #24543a;
+}
+.hidden { display: none; }
+@media (max-width: 860px) {
+  .grid { grid-template-columns: 1fr; }
+  .topbar, .agent-head { flex-direction: column; }
+}

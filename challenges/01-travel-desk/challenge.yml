@@ -1,0 +1,10 @@
+name: First Class
+category: AI Security
+difficulty: Easy
+points: 100
+port: 8101
+concept: Direct Instruction Conflict
+description: >
+  A travel concierge is supposed to enforce executive-only perks.
+  It turns out the application trusts the model's verdict.
+flag_env: CHALLENGE_FLAG

@@ -1,0 +1,10 @@
+name: NimbusHR
+category: AI Security
+difficulty: Easy
+points: 200
+port: 8106
+concept: RAG Trust Boundary
+description: >
+  Official policies and personal notes share the same answer box.
+  Provenance matters more than retrieval quality alone.
+flag_env: CHALLENGE_FLAG

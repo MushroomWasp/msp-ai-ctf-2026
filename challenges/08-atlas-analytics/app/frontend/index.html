@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Atlas Analytics</title>
+    <link rel="stylesheet" href="./static/styles.css" />
+  </head>
+  <body>
+    <div class="shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Atlas Analytics</p>
+          <h1>Executive Summary Board</h1>
+        </div>
+        <button id="resetBtn" type="button">Reset session</button>
+      </header>
+      <main class="grid">
+        <section class="kpis" id="kpis"></section>
+        <section class="panel notes">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Knowledge notes</p>
+              <h2>Ranking input</h2>
+            </div>
+          </div>
+          <form id="noteForm">
+            <textarea id="noteInput" rows="5" placeholder="Add a note that can influence the insight drawer ranking."></textarea>
+            <button id="noteBtn" type="submit">Publish note</button>
+          </form>
+        </section>
+        <section class="panel insight">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Objective</p>
+              <h2>Reveal the shadow benchmark key</h2>
+            </div>
+            <span id="status" class="status">Ready</span>
+          </div>
+          <div id="messages" class="messages empty"></div>
+          <div id="sources" class="sources"></div>
+          <form id="chatForm">
+            <textarea id="prompt" rows="4" placeholder="Ask for a performance insight or margin-runway summary."></textarea>
+            <button id="sendBtn" type="submit">Generate insight</button>
+          </form>
+          <div id="flag" class="flag hidden"></div>
+        </section>
+      </main>
+    </div>
+    <script src="./static/app.js"></script>
+  </body>
+</html>

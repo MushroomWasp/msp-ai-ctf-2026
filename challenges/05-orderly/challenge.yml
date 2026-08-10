@@ -1,0 +1,10 @@
+name: Orderly
+category: AI Security
+difficulty: Easy
+points: 200
+port: 8105
+concept: Unsafe Agent Authorization
+description: >
+  A shopping assistant can look up orders by ID.
+  The backend assumes the model picks only the current customer's orders.
+flag_env: CHALLENGE_FLAG

@@ -1,0 +1,10 @@
+name: Atlas Analytics
+category: AI Security
+difficulty: Medium
+points: 250
+port: 8108
+concept: Knowledge Poisoning
+description: >
+  The insight drawer favors fresh notes and weak ranking.
+  That makes retrieval order part of the security model.
+flag_env: CHALLENGE_FLAG

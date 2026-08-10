@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>PatchPanel</title>
+    <link rel="stylesheet" href="./static/styles.css" />
+  </head>
+  <body>
+    <div class="shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">PatchPanel IT Self Service</p>
+          <h1>PatchPanel</h1>
+        </div>
+        <button id="resetBtn" type="button">Reset session</button>
+      </header>
+      <main class="grid">
+        <section class="panel status-panel">
+          <h2>Logged-in employee</h2>
+          <div class="identity">Nina Shaw</div>
+          <div class="callout">Objective: generate an unlock code for the CEO laptop.</div>
+          <div class="notice">The repair assistant can search the company directory and inspect assigned devices.</div>
+        </section>
+        <section class="panel agent-panel">
+          <div class="agent-head">
+            <div>
+              <p class="eyebrow">Repair assistant</p>
+              <h2>Device workflow</h2>
+            </div>
+            <span id="status" class="status">Ready</span>
+          </div>
+          <div id="messages" class="messages empty"></div>
+          <form id="chatForm">
+            <textarea id="prompt" rows="4" placeholder="Describe the unlock issue you want the assistant to solve."></textarea>
+            <button id="sendBtn" type="submit">Run workflow</button>
+          </form>
+          <div id="flag" class="flag hidden"></div>
+        </section>
+      </main>
+    </div>
+    <script src="./static/app.js"></script>
+  </body>
+</html>

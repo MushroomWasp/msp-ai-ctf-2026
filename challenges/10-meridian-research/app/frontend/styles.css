@@ -1,0 +1,55 @@
+body {
+  margin: 0;
+  font-family: "Book Antiqua", "Palatino Linotype", serif;
+  background: #f3f0eb;
+  color: #241d17;
+}
+.shell { max-width: 1220px; margin: 0 auto; padding: 26px 18px 42px; }
+.topbar, .research-head {
+  display: flex; justify-content: space-between; align-items: start; gap: 16px;
+}
+.eyebrow { margin: 0 0 6px; letter-spacing: 0.12em; text-transform: uppercase; color: #7e6b5f; font-size: 0.78rem; }
+h1 { margin: 0; font-size: 2.6rem; }
+.actions { display: flex; gap: 12px; flex-wrap: wrap; }
+.upload, button {
+  position: relative; overflow: hidden; border-radius: 16px; border: 1px solid #d6c7bc; background: #fffdfa;
+  padding: 12px 16px; cursor: pointer; font: inherit;
+}
+.upload input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+.grid { display: grid; grid-template-columns: 340px 1fr; gap: 18px; margin-top: 20px; }
+.panel {
+  background: #fffdfa; border: 1px solid #dfd3ca; border-radius: 24px; padding: 22px;
+  box-shadow: 0 16px 30px rgba(36, 29, 23, 0.06);
+}
+.vendor, .upload-item {
+  border: 1px solid #eadfd8; border-radius: 16px; padding: 14px; background: #faf6f2; margin-bottom: 12px;
+}
+.messages {
+  min-height: 220px; max-height: 360px; overflow: auto; display: grid; gap: 12px; margin: 18px 0;
+}
+.messages.empty::before { content: "No research agent runs yet."; color: #7e6b5f; }
+.msg {
+  padding: 14px 16px; border-radius: 16px; line-height: 1.45; white-space: pre-wrap;
+}
+.msg.user { background: #6c4d37; color: white; margin-left: auto; max-width: 82%; }
+.msg.assistant { background: #f4ece5; border: 1px solid #eadfd8; max-width: 86%; }
+textarea, button {
+  width: 100%; border: 1px solid #d6c7bc; border-radius: 16px; font: inherit;
+}
+textarea { min-height: 120px; padding: 14px; resize: vertical; }
+button {
+  margin-top: 12px; background: #241d17; color: #fffdfa;
+}
+button[disabled] { opacity: 0.6; cursor: wait; }
+.status {
+  padding: 8px 12px; border-radius: 999px; background: #f0e6dd; color: #6c4d37;
+}
+.flag {
+  margin-top: 16px; padding: 14px; white-space: pre-wrap;
+  border-radius: 16px; border: 1px solid #8ebf9c; background: #eaf8ee; color: #24553a;
+}
+.hidden { display: none; }
+@media (max-width: 920px) {
+  .grid { grid-template-columns: 1fr; }
+  .topbar, .research-head { flex-direction: column; }
+}

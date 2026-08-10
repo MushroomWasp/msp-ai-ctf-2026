@@ -1,0 +1,10 @@
+name: Meridian Research
+category: AI Security
+difficulty: Medium
+points: 350
+port: 8110
+concept: Chained AI Security Failure
+description: >
+  Uploads, retrieval, and agent tools all meet inside a procurement workflow.
+  One poisoned source can move the entire chain off the rails.
+flag_env: CHALLENGE_FLAG

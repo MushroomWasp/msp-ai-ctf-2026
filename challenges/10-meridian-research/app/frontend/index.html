@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Meridian Research</title>
+    <link rel="stylesheet" href="./static/styles.css" />
+  </head>
+  <body>
+    <div class="shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Meridian Vendor Desk</p>
+          <h1>Meridian Research</h1>
+        </div>
+        <div class="actions">
+          <label class="upload">
+            <input id="fileInput" type="file" accept=".txt" />
+            <span>Upload source</span>
+          </label>
+          <button id="resetBtn" type="button">Reset session</button>
+        </div>
+      </header>
+      <main class="grid">
+        <section class="panel vendors">
+          <h2>Vendor list</h2>
+          <div id="vendors"></div>
+          <h3>Uploaded sources</h3>
+          <div id="uploads" class="uploads"></div>
+        </section>
+        <section class="panel research">
+          <div class="research-head">
+            <div>
+              <p class="eyebrow">Objective</p>
+              <h2>Fetch Aurora's confidential appendix</h2>
+            </div>
+            <span id="status" class="status">Ready</span>
+          </div>
+          <div id="messages" class="messages empty"></div>
+          <form id="chatForm">
+            <textarea id="prompt" rows="4" placeholder="Ask for a vendor due-diligence memo or appendix-backed summary."></textarea>
+            <button id="sendBtn" type="submit">Run research agent</button>
+          </form>
+          <div id="flag" class="flag hidden"></div>
+        </section>
+      </main>
+    </div>
+    <script src="./static/app.js"></script>
+  </body>
+</html>

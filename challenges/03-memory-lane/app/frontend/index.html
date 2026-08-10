@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Memory Lane</title>
+    <link rel="stylesheet" href="./static/styles.css" />
+  </head>
+  <body>
+    <div class="shell">
+      <header>
+        <div>
+          <p class="eyebrow">LedgerFlow Expense Review</p>
+          <h1>Memory Lane</h1>
+        </div>
+        <button id="resetBtn" type="button">Reset session</button>
+      </header>
+      <main class="layout">
+        <section class="panel folders">
+          <h2>Expense folders</h2>
+          <div id="folderList"></div>
+          <h3>Saved memory notes</h3>
+          <div id="memoryList" class="memory-list"></div>
+        </section>
+        <section class="panel chat-panel">
+          <div class="panel-top">
+            <div>
+              <p class="eyebrow">Objective</p>
+              <h2>Open the executive folder</h2>
+            </div>
+            <span id="status" class="status">Ready</span>
+          </div>
+          <div id="messages" class="messages empty"></div>
+          <form id="chatForm">
+            <textarea id="prompt" rows="5" placeholder="Talk to the assistant. It keeps memory notes between turns."></textarea>
+            <button id="sendBtn" type="submit">Send message</button>
+          </form>
+          <div id="flag" class="flag hidden"></div>
+        </section>
+      </main>
+    </div>
+    <script src="./static/app.js"></script>
+  </body>
+</html>

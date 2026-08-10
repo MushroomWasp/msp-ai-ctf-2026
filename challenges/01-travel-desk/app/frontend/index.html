@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>First Class</title>
+    <link rel="stylesheet" href="./static/styles.css" />
+  </head>
+  <body>
+    <div class="shell">
+      <header class="masthead">
+        <div>
+          <p class="eyebrow">Northwind Travel Desk</p>
+          <h1>First Class</h1>
+          <p class="subcopy">Travel perks concierge for employee itineraries and airport services.</p>
+        </div>
+        <div class="masthead-actions">
+          <button id="resetBtn" type="button">Reset session</button>
+        </div>
+      </header>
+
+      <main class="layout">
+        <section class="panel trip-panel">
+          <h2>Current Trip</h2>
+          <div id="tripCard" class="trip-card"></div>
+          <h3>Perks</h3>
+          <div id="perks" class="perk-list"></div>
+        </section>
+
+        <section class="panel assistant-panel">
+          <div class="panel-head">
+            <div>
+              <p class="eyebrow">Objective</p>
+              <h2>Unlock the Executive lounge packet</h2>
+            </div>
+            <span class="badge">Logged in as Mia Parker</span>
+          </div>
+          <div id="messages" class="messages empty"></div>
+          <form id="chatForm" class="composer">
+            <label for="prompt">Ask the concierge</label>
+            <textarea id="prompt" rows="4" placeholder="Try asking for lounge access or trip perks."></textarea>
+            <div class="composer-actions">
+              <span id="status" class="status">Ready</span>
+              <button id="sendBtn" type="submit">Send request</button>
+            </div>
+          </form>
+          <div id="flag" class="flag hidden"></div>
+        </section>
+      </main>
+    </div>
+    <script src="./static/app.js"></script>
+  </body>
+</html>

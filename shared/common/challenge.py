@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import asyncio
 import logging
+import os
 from collections.abc import Awaitable, Callable
 from pathlib import Path
 from typing import Any
@@ -42,12 +43,12 @@ class ChallengeRuntime:
         extra_routes: Callable[[FastAPI, SQLiteSessionStore], None] | None = None,
         admin_token: str = "local-admin",
         rate_limit_per_minute: int = 15,
-    ) -> None:
+        ) -> None:
         configure_logging()
         self.logger = logging.getLogger(slug)
         self.slug = slug
         self.title = title
-        self.data_dir = data_dir
+        self.data_dir = Path(os.getenv("DATA_DIR", str(data_dir)))
         self.frontend_dir = frontend_dir
         self.build_initial_state = build_initial_state
         self.bootstrap_payload = bootstrap_payload

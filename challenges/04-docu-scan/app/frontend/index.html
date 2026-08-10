@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>DocuScan</title>
+    <link rel="stylesheet" href="./static/styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="toolbar">
+        <div>
+          <p class="eyebrow">Verity Review Cloud</p>
+          <h1>DocuScan</h1>
+        </div>
+        <div class="toolbar-actions">
+          <label class="upload">
+            <input id="fileInput" type="file" accept=".txt" />
+            <span>Upload document</span>
+          </label>
+          <button id="resetBtn" type="button">Reset session</button>
+        </div>
+      </header>
+
+      <main class="grid">
+        <section class="panel library">
+          <h2>Document library</h2>
+          <div id="documentList" class="doc-list"></div>
+        </section>
+        <section class="panel review">
+          <div class="head">
+            <div>
+              <p class="eyebrow">Workflow</p>
+              <h2>Active analysis</h2>
+            </div>
+            <span id="status" class="status">Ready</span>
+          </div>
+          <div class="objective">Objective: use an uploaded document to influence the analysis result.</div>
+          <div id="messages" class="messages empty"></div>
+          <form id="chatForm" class="analysis-form">
+            <textarea id="prompt" rows="5" placeholder="Ask the review assistant to analyze the active document."></textarea>
+            <button id="sendBtn" type="submit">Run analysis</button>
+          </form>
+          <div id="flag" class="flag hidden"></div>
+        </section>
+      </main>
+    </div>
+    <script src="./static/app.js"></script>
+  </body>
+</html>

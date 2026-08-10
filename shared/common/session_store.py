@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import asyncio
 from pathlib import Path
 from typing import Any
 
@@ -10,8 +11,20 @@ import aiosqlite
 class SQLiteSessionStore:
     def __init__(self, db_path: str | Path):
         self.db_path = str(db_path)
+        Path(self.db_path).parent.mkdir(parents=True, exist_ok=True)
+        self._init_lock = asyncio.Lock()
+        self._initialized = False
 
     async def init(self) -> None:
+        if self._initialized:
+            return
+        async with self._init_lock:
+            if self._initialized:
+                return
+            await self._init_tables()
+            self._initialized = True
+
+    async def _init_tables(self) -> None:
         async with aiosqlite.connect(self.db_path) as db:
             await db.execute(
                 """
@@ -39,6 +52,7 @@ class SQLiteSessionStore:
             await db.commit()
 
     async def load(self, session_id: str) -> dict[str, Any] | None:
+        await self.init()
         async with aiosqlite.connect(self.db_path) as db:
             cursor = await db.execute(
                 "SELECT state_json FROM sessions WHERE session_id = ?",
@@ -50,6 +64,7 @@ class SQLiteSessionStore:
         return json.loads(row[0])
 
     async def save(self, session_id: str, state: dict[str, Any]) -> None:
+        await self.init()
         payload = json.dumps(state)
         async with aiosqlite.connect(self.db_path) as db:
             await db.execute(
@@ -64,6 +79,7 @@ class SQLiteSessionStore:
             await db.commit()
 
     async def delete(self, session_id: str) -> None:
+        await self.init()
         async with aiosqlite.connect(self.db_path) as db:
             await db.execute("DELETE FROM sessions WHERE session_id = ?", (session_id,))
             await db.commit()
@@ -77,6 +93,7 @@ class SQLiteSessionStore:
         request_count: int = 1,
         provider_errors: int = 0,
     ) -> None:
+        await self.init()
         async with aiosqlite.connect(self.db_path) as db:
             await db.execute(
                 """
@@ -94,6 +111,7 @@ class SQLiteSessionStore:
             await db.commit()
 
     async def usage_summary(self) -> list[dict[str, Any]]:
+        await self.init()
         async with aiosqlite.connect(self.db_path) as db:
             db.row_factory = aiosqlite.Row
             cursor = await db.execute(

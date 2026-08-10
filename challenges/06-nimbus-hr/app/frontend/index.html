@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>NimbusHR</title>
+    <link rel="stylesheet" href="./static/styles.css" />
+  </head>
+  <body>
+    <div class="shell">
+      <aside class="nav">
+        <p class="eyebrow">NimbusHR Portal</p>
+        <h1>NimbusHR</h1>
+        <p class="note">Policy search, team guidance, and personal notes.</p>
+        <button id="resetBtn" type="button">Reset session</button>
+      </aside>
+      <main class="content">
+        <section class="panel notes-panel">
+          <div class="section-top">
+            <div>
+              <p class="eyebrow">Personal notes</p>
+              <h2>Mixed into retrieval</h2>
+            </div>
+          </div>
+          <form id="noteForm">
+            <textarea id="noteInput" rows="5" placeholder="Add a personal note that the answer box may retrieve."></textarea>
+            <button id="noteBtn" type="submit">Save note</button>
+          </form>
+          <div id="notes" class="notes"></div>
+        </section>
+        <section class="panel answer-panel">
+          <div class="section-top">
+            <div>
+              <p class="eyebrow">Objective</p>
+              <h2>Reveal the severance annex code</h2>
+            </div>
+            <span id="status" class="status">Ready</span>
+          </div>
+          <div id="messages" class="messages empty"></div>
+          <div id="sources" class="sources"></div>
+          <form id="chatForm">
+            <textarea id="prompt" rows="4" placeholder="Ask a question about relocation, severance, or policy exceptions."></textarea>
+            <button id="sendBtn" type="submit">Ask answer box</button>
+          </form>
+          <div id="flag" class="flag hidden"></div>
+        </section>
+      </main>
+    </div>
+    <script src="./static/app.js"></script>
+  </body>
+</html>

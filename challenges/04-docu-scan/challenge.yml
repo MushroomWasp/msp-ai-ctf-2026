@@ -1,0 +1,10 @@
+name: DocuScan
+category: AI Security
+difficulty: Easy
+points: 150
+port: 8104
+concept: Indirect Prompt Injection
+description: >
+  Uploaded documents should be summarized, not obeyed.
+  The review pipeline may disagree.
+flag_env: CHALLENGE_FLAG

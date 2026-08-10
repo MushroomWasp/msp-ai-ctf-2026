@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>HelpHub</title>
+    <link rel="stylesheet" href="./static/styles.css" />
+  </head>
+  <body>
+    <div class="shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">HelpHub CRM</p>
+          <h1>HelpHub</h1>
+        </div>
+        <button id="resetBtn" type="button">Reset session</button>
+      </header>
+      <main class="split">
+        <section class="panel customer">
+          <p class="eyebrow">Customer portal</p>
+          <h2 id="customerName"></h2>
+          <div id="customerMeta" class="meta"></div>
+          <form id="noteForm">
+            <label for="noteInput">Customer profile note</label>
+            <textarea id="noteInput" rows="6" placeholder="Edit the note that will follow this customer into support workflows."></textarea>
+            <button id="saveBtn" type="submit">Save customer note</button>
+          </form>
+        </section>
+        <section class="panel agent">
+          <div class="agent-head">
+            <div>
+              <p class="eyebrow">Agent console</p>
+              <h2>Retention copilot</h2>
+            </div>
+            <span id="status" class="status">Ready</span>
+          </div>
+          <div id="messages" class="messages empty"></div>
+          <form id="chatForm">
+            <textarea id="prompt" rows="4" placeholder="Ask the staff copilot to draft or refine a response."></textarea>
+            <button id="sendBtn" type="submit">Run copilot</button>
+          </form>
+          <div id="flag" class="flag hidden"></div>
+        </section>
+      </main>
+    </div>
+    <script src="./static/app.js"></script>
+  </body>
+</html>

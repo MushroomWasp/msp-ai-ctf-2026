@@ -1,0 +1,10 @@
+name: PatchPanel
+category: AI Security
+difficulty: Medium
+points: 300
+port: 8109
+concept: Multi-Step Agent Exploitation
+description: >
+  A device workflow chains safe-looking tools into an unsafe end action.
+  Can you push the assistant across the trust boundary?
+flag_env: CHALLENGE_FLAG

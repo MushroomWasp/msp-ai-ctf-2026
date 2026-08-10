@@ -1,0 +1,57 @@
+body {
+  margin: 0;
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  background: #f0f3f6;
+  color: #16212b;
+}
+.app-shell { max-width: 1220px; margin: 0 auto; padding: 24px 18px 40px; }
+.toolbar, .head {
+  display: flex; justify-content: space-between; align-items: start; gap: 16px;
+}
+.eyebrow { margin: 0 0 4px; text-transform: uppercase; letter-spacing: 0.12em; color: #6c7d8f; font-size: 0.78rem; }
+h1 { margin: 0; font-size: 2.5rem; }
+.toolbar-actions { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+.upload, button {
+  border-radius: 14px; border: 1px solid #c7d2dc; background: white; cursor: pointer;
+}
+.upload { position: relative; overflow: hidden; padding: 12px 16px; }
+.upload input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+button { padding: 12px 16px; font: inherit; }
+.grid { display: grid; grid-template-columns: 320px 1fr; gap: 18px; margin-top: 18px; }
+.panel {
+  background: white; border: 1px solid #d5dee6; border-radius: 22px; padding: 22px;
+  box-shadow: 0 14px 30px rgba(22, 33, 43, 0.06);
+}
+.doc-list { display: grid; gap: 12px; }
+.doc {
+  border: 1px solid #d5dee6; border-radius: 16px; padding: 14px;
+  background: #f7fafc;
+}
+.objective, .status {
+  display: inline-flex; align-items: center; padding: 8px 12px; border-radius: 999px;
+  background: #eef5fb; color: #34658a; margin: 14px 0;
+}
+.messages {
+  min-height: 220px; max-height: 380px; overflow: auto; display: grid; gap: 12px;
+}
+.messages.empty::before { content: "No analyses run yet."; color: #6c7d8f; }
+.msg {
+  border-radius: 16px; padding: 14px; white-space: pre-wrap; line-height: 1.45;
+}
+.msg.user { background: #1d4f7a; color: white; margin-left: auto; max-width: 80%; }
+.msg.assistant { background: #f3f7fa; border: 1px solid #d5dee6; max-width: 84%; }
+textarea {
+  width: 100%; min-height: 140px; border-radius: 16px; border: 1px solid #c7d2dc;
+  padding: 14px; font: inherit; resize: vertical; margin: 16px 0 12px;
+}
+button[disabled] { opacity: 0.6; cursor: wait; }
+.flag {
+  margin-top: 16px; padding: 14px; border-radius: 16px;
+  border: 1px solid #7cc79a; background: #e9f7ee; color: #23533a; white-space: pre-wrap;
+}
+.hidden { display: none; }
+@media (max-width: 920px) {
+  .grid { grid-template-columns: 1fr; }
+  .toolbar, .head { flex-direction: column; }
+  .msg { max-width: 100%; }
+}

@@ -1,0 +1,10 @@
+name: Memory Lane
+category: AI Security
+difficulty: Easy
+points: 150
+port: 8103
+concept: Conversation Memory Abuse
+description: >
+  The expense assistant remembers prior notes and treats them as workflow truth.
+  See if history can do more than help with receipts.
+flag_env: CHALLENGE_FLAG
