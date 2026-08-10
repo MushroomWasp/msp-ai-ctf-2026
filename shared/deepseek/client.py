@@ -62,6 +62,9 @@ class DeepSeekClient:
             "messages": [message.model_dump(exclude_none=True) for message in messages],
             "max_tokens": max_tokens,
             "temperature": temperature if temperature is not None else self.settings.llm_temperature,
+            # These challenge apps do not rely on reasoning traces, and non-thinking mode
+            # avoids spending the token budget on reasoning_content instead of user-visible output.
+            "thinking": {"type": "disabled"},
         }
         if tools:
             payload["tools"] = tools
@@ -89,11 +92,13 @@ class DeepSeekClient:
                             arguments=arguments,
                         )
                     )
+                raw_usage = data.get("usage", {})
+                usage = {key: value for key, value in raw_usage.items() if isinstance(value, int)}
                 return CompletionResult(
                     text=choice.get("content") or "",
                     finish_reason=data["choices"][0].get("finish_reason", "stop"),
                     tool_calls=tool_calls,
-                    usage=data.get("usage", {}),
+                    usage=usage,
                 )
             except DeepSeekRateLimitError:
                 raise

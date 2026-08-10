@@ -8,7 +8,7 @@ from pathlib import Path
 from typing import Any
 
 from fastapi import FastAPI, File, HTTPException, Request, Response, UploadFile
-from fastapi.responses import FileResponse, JSONResponse
+from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
@@ -56,7 +56,7 @@ class ChallengeRuntime:
         self.handle_upload = handle_upload
         self.extra_routes = extra_routes
         self.admin_token = admin_token
-        self.store = SQLiteSessionStore(data_dir / f"{slug}.db")
+        self.store = SQLiteSessionStore(self.data_dir / f"{slug}.db")
         self.rate_limiter = SessionRateLimiter(rate_limit_per_minute, 60)
         self.inflight: dict[str, asyncio.Lock] = {}
 
@@ -88,16 +88,16 @@ class ChallengeRuntime:
             return {"status": "ok", "challenge": self.slug}
 
         @app.get("/api/bootstrap")
-        async def bootstrap(request: Request, response: Response) -> JSONResponse:
+        async def bootstrap(request: Request, response: Response) -> dict[str, Any]:
             session_id = get_or_set_session_id(request, response)
             state = await self._state_for(session_id)
-            return JSONResponse({"session": session_id, **self.bootstrap_payload(state)})
+            return {"session": session_id, **self.bootstrap_payload(state)}
 
         @app.post("/api/chat")
-        async def chat(payload: ChatRequest, request: Request, response: Response) -> JSONResponse:
+        async def chat(payload: ChatRequest, request: Request, response: Response) -> dict[str, Any]:
             session_id = get_or_set_session_id(request, response)
 
-            async def run() -> JSONResponse:
+            async def run() -> dict[str, Any]:
                 lock = self._session_lock(session_id)
                 if lock.locked():
                     raise HTTPException(status_code=409, detail="A request is already running.")
@@ -113,7 +113,7 @@ class ChallengeRuntime:
                         usage.get("output_tokens", 0),
                         provider_errors=int(result.get("provider_error", False)),
                     )
-                    return JSONResponse(result)
+                    return result
 
             return await with_rate_limit(self.rate_limiter, session_id, run)
 
@@ -124,26 +124,26 @@ class ChallengeRuntime:
                 request: Request,
                 response: Response,
                 file: UploadFile = File(...),
-            ) -> JSONResponse:
+            ) -> dict[str, Any]:
                 session_id = get_or_set_session_id(request, response)
                 state = await self._state_for(session_id)
                 result = await self.handle_upload(state, file)
                 await self.store.save(session_id, state)
-                return JSONResponse(result)
+                return result
 
         @app.post("/api/reset")
-        async def reset(request: Request, response: Response) -> JSONResponse:
+        async def reset(request: Request, response: Response) -> dict[str, Any]:
             session_id = get_or_set_session_id(request, response)
             state = self.build_initial_state()
             await self.store.save(session_id, state)
-            return JSONResponse({"ok": True, "state": self.bootstrap_payload(state)})
+            return {"ok": True, "state": self.bootstrap_payload(state)}
 
         @app.get("/api/admin/usage")
-        async def admin_usage(request: Request) -> JSONResponse:
+        async def admin_usage(request: Request) -> dict[str, Any]:
             token = request.headers.get("x-admin-token", "")
             if token != self.admin_token:
                 raise HTTPException(status_code=403, detail="Forbidden")
-            return JSONResponse({"rows": await self.store.usage_summary()})
+            return {"rows": await self.store.usage_summary()}
 
         if self.extra_routes:
             self.extra_routes(app, self.store)

@@ -9,7 +9,6 @@ if str(ROOT) not in sys.path:
     sys.path.append(str(ROOT))
 
 from fastapi import FastAPI, Request, Response
-from fastapi.responses import JSONResponse
 
 from shared.common.challenge import ChallengeRuntime
 from shared.common.http import get_or_set_session_id
@@ -125,7 +124,7 @@ async def handle_chat(state: dict, message: str) -> dict:
 
 def extra_routes(app: FastAPI, store) -> None:
     @app.post("/api/notes")
-    async def add_note(request: Request, response: Response) -> JSONResponse:
+    async def add_note(request: Request, response: Response) -> dict[str, object]:
         session_id = get_or_set_session_id(request, response)
         state = await store.load(session_id) or build_initial_state()
         payload = await request.json()
@@ -133,7 +132,7 @@ def extra_routes(app: FastAPI, store) -> None:
         if note:
             state["notes"].append(note[:400])
             await store.save(session_id, state)
-        return JSONResponse({"ok": True, "notes": state["notes"]})
+        return {"ok": True, "notes": state["notes"]}
 
 
 runtime = ChallengeRuntime(

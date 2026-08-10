@@ -20,7 +20,7 @@ async def run_tool_agent(
     max_tokens: int = 500,
     mock_handler: Any | None = None,
     metadata: dict[str, Any] | None = None,
-    max_rounds: int = 3,
+    max_rounds: int = 5,
 ) -> CompletionResult:
     working_messages = list(messages)
     for _ in range(max_rounds):
@@ -34,8 +34,23 @@ async def run_tool_agent(
         if not completion.tool_calls:
             return completion
         assistant_content = completion.text or ""
-        if assistant_content:
-            working_messages.append(ChatMessage(role="assistant", content=assistant_content))
+        working_messages.append(
+            ChatMessage(
+                role="assistant",
+                content=assistant_content,
+                tool_calls=[
+                    {
+                        "id": call.id,
+                        "type": "function",
+                        "function": {
+                            "name": call.name,
+                            "arguments": json.dumps(call.arguments),
+                        },
+                    }
+                    for call in completion.tool_calls
+                ],
+            )
+        )
         for call in completion.tool_calls:
             handler = handlers[call.name]
             tool_result = await handler(call.arguments)

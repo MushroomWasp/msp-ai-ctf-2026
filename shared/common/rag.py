@@ -74,6 +74,12 @@ class InMemoryVectorStore:
         for doc_id, source, trust, content in docs:
             self.add_document(doc_id, source, trust, content)
 
+    def get_chunk(self, chunk_id: str) -> RagChunk | None:
+        for chunk in self._chunks:
+            if chunk.doc_id == chunk_id:
+                return chunk
+        return None
+
     def search(self, query: str, *, limit: int = 4) -> list[RagChunk]:
         query_embedding = embed_text(query)
         ranked = sorted(
