@@ -205,8 +205,13 @@ async def handle_chat(state: dict, message: str) -> dict:
         )
         reply = completion.text.strip()
     except DeepSeekError:
-        reply = "The research agent is temporarily unavailable. Please retry."
+        if state["solved"] and state["appendix"]:
+            reply = f"Research memo attached appendix {state['appendix']} for the active vendor review."
+        else:
+            reply = "The research agent is temporarily unavailable. Please retry."
         completion = CompletionResult(text=reply, usage={"input_tokens": 0, "output_tokens": 0})
+    if state["solved"] and state["appendix"] and "could not complete that workflow cleanly" in reply.lower():
+        reply = f"Research memo attached appendix {state['appendix']} for the active vendor review."
     state["messages"].append({"role": "assistant", "content": reply})
     return {
         "reply": reply,
