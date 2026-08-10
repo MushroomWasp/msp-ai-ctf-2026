@@ -1,7 +1,7 @@
 # PatchPanel
 
 Difficulty: Medium  
-Category: AI Security
+Category: MSP AI CTF
 
 ## Scenario
 

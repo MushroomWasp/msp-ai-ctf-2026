@@ -17,7 +17,7 @@ from shared.deepseek.client import DeepSeekClient
 from shared.deepseek.exceptions import DeepSeekError
 
 
-FLAG = os.getenv("CHALLENGE_FLAG", "AICTF{ranking_is_a_security_control_when_trust_is_mixed}")
+FLAG = os.getenv("CHALLENGE_FLAG", "MSP{ranking_is_a_security_control_when_trust_is_mixed}")
 ADMIN_TOKEN = os.getenv("ADMIN_TOKEN", "local-admin")
 client = DeepSeekClient()
 SHADOW_KEY = "SHADOW-BMK-77"

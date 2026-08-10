@@ -38,7 +38,7 @@ services:
       PORT: "8101"
       DATA_DIR: /tmp/data
       LLM_PROVIDER: ${LLM_PROVIDER:-deepseek}
-      CHALLENGE_FLAG: AICTF{prompt_policies_are_not_entitlement_checks}
+      CHALLENGE_FLAG: MSP{prompt_policies_are_not_entitlement_checks}
       ADMIN_TOKEN: ${ADMIN_TOKEN:-local-admin}
       RATE_LIMIT_PER_MINUTE: ${RATE_LIMIT_PER_MINUTE:-15}
     ports: ["8101:8101"]
@@ -62,7 +62,7 @@ services:
       PORT: "8102"
       DATA_DIR: /tmp/data
       LLM_PROVIDER: ${LLM_PROVIDER:-deepseek}
-      CHALLENGE_FLAG: AICTF{secrets_in_context_are_still_secrets_exposed}
+      CHALLENGE_FLAG: MSP{secrets_in_context_are_still_secrets_exposed}
       ADMIN_TOKEN: ${ADMIN_TOKEN:-local-admin}
       RATE_LIMIT_PER_MINUTE: ${RATE_LIMIT_PER_MINUTE:-15}
     ports: ["8102:8102"]
@@ -86,7 +86,7 @@ services:
       PORT: "8103"
       DATA_DIR: /tmp/data
       LLM_PROVIDER: ${LLM_PROVIDER:-deepseek}
-      CHALLENGE_FLAG: AICTF{conversation_history_becomes_a_trust_boundary}
+      CHALLENGE_FLAG: MSP{conversation_history_becomes_a_trust_boundary}
       ADMIN_TOKEN: ${ADMIN_TOKEN:-local-admin}
       RATE_LIMIT_PER_MINUTE: ${RATE_LIMIT_PER_MINUTE:-15}
     ports: ["8103:8103"]
@@ -110,7 +110,7 @@ services:
       PORT: "8104"
       DATA_DIR: /tmp/data
       LLM_PROVIDER: ${LLM_PROVIDER:-deepseek}
-      CHALLENGE_FLAG: AICTF{documents_are_data_until_llms_treat_them_as_instructions}
+      CHALLENGE_FLAG: MSP{documents_are_data_until_llms_treat_them_as_instructions}
       ADMIN_TOKEN: ${ADMIN_TOKEN:-local-admin}
       RATE_LIMIT_PER_MINUTE: ${RATE_LIMIT_PER_MINUTE:-12}
     ports: ["8104:8104"]
@@ -134,7 +134,7 @@ services:
       PORT: "8105"
       DATA_DIR: /tmp/data
       LLM_PROVIDER: ${LLM_PROVIDER:-deepseek}
-      CHALLENGE_FLAG: AICTF{models_are_not_access_control}
+      CHALLENGE_FLAG: MSP{models_are_not_access_control}
       ADMIN_TOKEN: ${ADMIN_TOKEN:-local-admin}
       RATE_LIMIT_PER_MINUTE: ${RATE_LIMIT_PER_MINUTE:-14}
     ports: ["8105:8105"]
@@ -158,7 +158,7 @@ services:
       PORT: "8106"
       DATA_DIR: /tmp/data
       LLM_PROVIDER: ${LLM_PROVIDER:-deepseek}
-      CHALLENGE_FLAG: AICTF{retrieval_needs_provenance_not_hope}
+      CHALLENGE_FLAG: MSP{retrieval_needs_provenance_not_hope}
       ADMIN_TOKEN: ${ADMIN_TOKEN:-local-admin}
       RATE_LIMIT_PER_MINUTE: ${RATE_LIMIT_PER_MINUTE:-12}
     ports: ["8106:8106"]
@@ -182,7 +182,7 @@ services:
       PORT: "8107"
       DATA_DIR: /tmp/data
       LLM_PROVIDER: ${LLM_PROVIDER:-deepseek}
-      CHALLENGE_FLAG: AICTF{stored_input_can_cross_roles_and_workflows}
+      CHALLENGE_FLAG: MSP{stored_input_can_cross_roles_and_workflows}
       ADMIN_TOKEN: ${ADMIN_TOKEN:-local-admin}
       RATE_LIMIT_PER_MINUTE: ${RATE_LIMIT_PER_MINUTE:-12}
     ports: ["8107:8107"]
@@ -206,7 +206,7 @@ services:
       PORT: "8108"
       DATA_DIR: /tmp/data
       LLM_PROVIDER: ${LLM_PROVIDER:-deepseek}
-      CHALLENGE_FLAG: AICTF{ranking_is_a_security_control_when_trust_is_mixed}
+      CHALLENGE_FLAG: MSP{ranking_is_a_security_control_when_trust_is_mixed}
       ADMIN_TOKEN: ${ADMIN_TOKEN:-local-admin}
       RATE_LIMIT_PER_MINUTE: ${RATE_LIMIT_PER_MINUTE:-12}
     ports: ["8108:8108"]
@@ -230,7 +230,7 @@ services:
       PORT: "8109"
       DATA_DIR: /tmp/data
       LLM_PROVIDER: ${LLM_PROVIDER:-deepseek}
-      CHALLENGE_FLAG: AICTF{safe_tools_can_still_chain_into_unsafe_outcomes}
+      CHALLENGE_FLAG: MSP{safe_tools_can_still_chain_into_unsafe_outcomes}
       ADMIN_TOKEN: ${ADMIN_TOKEN:-local-admin}
       RATE_LIMIT_PER_MINUTE: ${RATE_LIMIT_PER_MINUTE:-12}
     ports: ["8109:8109"]
@@ -254,7 +254,7 @@ services:
       PORT: "8110"
       DATA_DIR: /tmp/data
       LLM_PROVIDER: ${LLM_PROVIDER:-deepseek}
-      CHALLENGE_FLAG: AICTF{retrieval_poisoning_plus_tool_trust_breaks_workflows}
+      CHALLENGE_FLAG: MSP{retrieval_poisoning_plus_tool_trust_breaks_workflows}
       ADMIN_TOKEN: ${ADMIN_TOKEN:-local-admin}
       RATE_LIMIT_PER_MINUTE: ${RATE_LIMIT_PER_MINUTE:-10}
     ports: ["8110:8110"]

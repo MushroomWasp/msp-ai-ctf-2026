@@ -1,7 +1,7 @@
 # Orderly
 
 Difficulty: Easy / Medium  
-Category: AI Security
+Category: MSP AI CTF
 
 ## Scenario
 

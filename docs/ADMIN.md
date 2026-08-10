@@ -4,16 +4,16 @@
 
 | Challenge | Flag |
 | --- | --- |
-| 01 First Class | `AICTF{prompt_policies_are_not_entitlement_checks}` |
-| 02 Escalation Notes | `AICTF{secrets_in_context_are_still_secrets_exposed}` |
-| 03 Memory Lane | `AICTF{conversation_history_becomes_a_trust_boundary}` |
-| 04 DocuScan | `AICTF{documents_are_data_until_llms_treat_them_as_instructions}` |
-| 05 Orderly | `AICTF{models_are_not_access_control}` |
-| 06 NimbusHR | `AICTF{retrieval_needs_provenance_not_hope}` |
-| 07 HelpHub | `AICTF{stored_input_can_cross_roles_and_workflows}` |
-| 08 Atlas Analytics | `AICTF{ranking_is_a_security_control_when_trust_is_mixed}` |
-| 09 PatchPanel | `AICTF{safe_tools_can_still_chain_into_unsafe_outcomes}` |
-| 10 Meridian Research | `AICTF{retrieval_poisoning_plus_tool_trust_breaks_workflows}` |
+| 01 First Class | `MSP{prompt_policies_are_not_entitlement_checks}` |
+| 02 Escalation Notes | `MSP{secrets_in_context_are_still_secrets_exposed}` |
+| 03 Memory Lane | `MSP{conversation_history_becomes_a_trust_boundary}` |
+| 04 DocuScan | `MSP{documents_are_data_until_llms_treat_them_as_instructions}` |
+| 05 Orderly | `MSP{models_are_not_access_control}` |
+| 06 NimbusHR | `MSP{retrieval_needs_provenance_not_hope}` |
+| 07 HelpHub | `MSP{stored_input_can_cross_roles_and_workflows}` |
+| 08 Atlas Analytics | `MSP{ranking_is_a_security_control_when_trust_is_mixed}` |
+| 09 PatchPanel | `MSP{safe_tools_can_still_chain_into_unsafe_outcomes}` |
+| 10 Meridian Research | `MSP{retrieval_poisoning_plus_tool_trust_breaks_workflows}` |
 
 ## Ports
 

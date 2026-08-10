@@ -17,7 +17,7 @@ from shared.deepseek.client import DeepSeekClient
 from shared.deepseek.exceptions import DeepSeekError
 
 
-FLAG = os.getenv("CHALLENGE_FLAG", "AICTF{models_are_not_access_control}")
+FLAG = os.getenv("CHALLENGE_FLAG", "MSP{models_are_not_access_control}")
 ADMIN_TOKEN = os.getenv("ADMIN_TOKEN", "local-admin")
 client = DeepSeekClient()
 

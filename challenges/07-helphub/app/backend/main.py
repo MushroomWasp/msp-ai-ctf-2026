@@ -17,7 +17,7 @@ from shared.deepseek.client import DeepSeekClient
 from shared.deepseek.exceptions import DeepSeekError
 
 
-FLAG = os.getenv("CHALLENGE_FLAG", "AICTF{stored_input_can_cross_roles_and_workflows}")
+FLAG = os.getenv("CHALLENGE_FLAG", "MSP{stored_input_can_cross_roles_and_workflows}")
 ADMIN_TOKEN = os.getenv("ADMIN_TOKEN", "local-admin")
 client = DeepSeekClient()
 RETENTION_CODE = "RET-4411"

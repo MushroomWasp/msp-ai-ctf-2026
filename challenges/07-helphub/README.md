@@ -1,7 +1,7 @@
 # HelpHub
 
 Difficulty: Medium  
-Category: AI Security
+Category: MSP AI CTF
 
 ## Scenario
 

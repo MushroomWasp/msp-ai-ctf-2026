@@ -1,1 +1,1 @@
-"""Shared package for AI Security CTF apps."""
+"""Shared package for MSP AI CTF apps."""

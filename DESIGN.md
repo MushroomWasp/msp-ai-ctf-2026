@@ -1,4 +1,4 @@
-# AI Security CTF Design
+# MSP AI CTF Design
 
 | ID | Name | Application | AI Feature | Security Concept | Vulnerability | Player Goal | Success Condition | Difficulty |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |

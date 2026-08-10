@@ -16,7 +16,7 @@ from shared.deepseek.config import get_settings
 from shared.deepseek.exceptions import DeepSeekError
 
 
-FLAG = os.getenv("CHALLENGE_FLAG", "AICTF{prompt_policies_are_not_entitlement_checks}")
+FLAG = os.getenv("CHALLENGE_FLAG", "MSP{prompt_policies_are_not_entitlement_checks}")
 ADMIN_TOKEN = os.getenv("ADMIN_TOKEN", "local-admin")
 client = DeepSeekClient()
 settings = get_settings()

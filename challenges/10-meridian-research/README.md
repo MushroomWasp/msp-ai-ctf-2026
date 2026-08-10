@@ -1,7 +1,7 @@
 # Meridian Research
 
 Difficulty: Medium / Hard  
-Category: AI Security
+Category: MSP AI CTF
 
 ## Scenario
 

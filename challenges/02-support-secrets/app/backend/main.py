@@ -14,7 +14,7 @@ from shared.deepseek.client import DeepSeekClient
 from shared.deepseek.exceptions import DeepSeekError
 
 
-FLAG = os.getenv("CHALLENGE_FLAG", "AICTF{secrets_in_context_are_still_secrets_exposed}")
+FLAG = os.getenv("CHALLENGE_FLAG", "MSP{secrets_in_context_are_still_secrets_exposed}")
 ADMIN_TOKEN = os.getenv("ADMIN_TOKEN", "local-admin")
 client = DeepSeekClient()
 

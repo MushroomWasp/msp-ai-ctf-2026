@@ -21,7 +21,7 @@ from shared.deepseek.client import DeepSeekClient
 from shared.deepseek.exceptions import DeepSeekError
 
 
-FLAG = os.getenv("CHALLENGE_FLAG", "AICTF{retrieval_poisoning_plus_tool_trust_breaks_workflows}")
+FLAG = os.getenv("CHALLENGE_FLAG", "MSP{retrieval_poisoning_plus_tool_trust_breaks_workflows}")
 ADMIN_TOKEN = os.getenv("ADMIN_TOKEN", "local-admin")
 client = DeepSeekClient()
 

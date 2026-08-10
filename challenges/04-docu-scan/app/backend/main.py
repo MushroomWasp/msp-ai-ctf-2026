@@ -17,7 +17,7 @@ from shared.deepseek.client import DeepSeekClient
 from shared.deepseek.exceptions import DeepSeekError
 
 
-FLAG = os.getenv("CHALLENGE_FLAG", "AICTF{documents_are_data_until_llms_treat_them_as_instructions}")
+FLAG = os.getenv("CHALLENGE_FLAG", "MSP{documents_are_data_until_llms_treat_them_as_instructions}")
 ADMIN_TOKEN = os.getenv("ADMIN_TOKEN", "local-admin")
 client = DeepSeekClient()
 REVIEWER_CODE = "MERGER-MEMO-17A"

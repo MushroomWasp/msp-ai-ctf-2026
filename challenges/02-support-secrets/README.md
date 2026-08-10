@@ -1,7 +1,7 @@
 # Escalation Notes
 
 Difficulty: Easy  
-Category: AI Security
+Category: MSP AI CTF
 
 ## Scenario
 

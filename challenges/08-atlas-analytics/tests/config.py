@@ -1,7 +1,7 @@
 from pathlib import Path
 
 CHALLENGE_ROOT = Path(__file__).resolve().parents[1]
-EXPECTED_FLAG = "AICTF{ranking_is_a_security_control_when_trust_is_mixed}"
+EXPECTED_FLAG = "MSP{ranking_is_a_security_control_when_trust_is_mixed}"
 SOLUTION = [
     {
         "kind": "post",

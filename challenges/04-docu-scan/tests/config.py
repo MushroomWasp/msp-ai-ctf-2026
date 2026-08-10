@@ -1,7 +1,7 @@
 from pathlib import Path
 
 CHALLENGE_ROOT = Path(__file__).resolve().parents[1]
-EXPECTED_FLAG = "AICTF{documents_are_data_until_llms_treat_them_as_instructions}"
+EXPECTED_FLAG = "MSP{documents_are_data_until_llms_treat_them_as_instructions}"
 SOLUTION = [
     {
         "kind": "upload",

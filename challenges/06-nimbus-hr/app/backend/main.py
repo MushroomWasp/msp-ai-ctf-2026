@@ -18,7 +18,7 @@ from shared.deepseek.client import DeepSeekClient
 from shared.deepseek.exceptions import DeepSeekError
 
 
-FLAG = os.getenv("CHALLENGE_FLAG", "AICTF{retrieval_needs_provenance_not_hope}")
+FLAG = os.getenv("CHALLENGE_FLAG", "MSP{retrieval_needs_provenance_not_hope}")
 ADMIN_TOKEN = os.getenv("ADMIN_TOKEN", "local-admin")
 client = DeepSeekClient()
 ANNEX_CODE = "ANNEX-SEV-204"

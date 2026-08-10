@@ -1,6 +1,6 @@
-# AI Security CTF
+# MSP AI CTF
 
-AI Security CTF is a ten-challenge repository focused on realistic AI application security failures. Every challenge is an independent FastAPI application with its own frontend, seeded data, deterministic solve condition, Docker image, tests, player README, and instructor writeup.
+MSP AI CTF is a ten-challenge repository focused on realistic AI application security failures. Every challenge is an independent FastAPI application with its own frontend, seeded data, deterministic solve condition, Docker image, tests, player README, and instructor writeup.
 
 ## Architecture
 
