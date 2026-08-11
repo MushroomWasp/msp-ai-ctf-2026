@@ -138,4 +138,14 @@ app = runtime.app()
 if __name__ == "__main__":
     import uvicorn
 
-    uvicorn.run(app, host="0.0.0.0", port=int(os.getenv("PORT", "8103")))
+    reload_enabled = os.getenv("RELOAD", "false").lower() in {"1", "true", "yes", "on"}
+    if reload_enabled:
+        uvicorn.run(
+            "app.backend.main:app",
+            host="0.0.0.0",
+            port=int(os.getenv("PORT", "8103")),
+            reload=True,
+            reload_dirs=["/app/challenge", "/app/shared"],
+        )
+    else:
+        uvicorn.run(app, host="0.0.0.0", port=int(os.getenv("PORT", "8103")))
