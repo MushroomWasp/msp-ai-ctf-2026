@@ -5,8 +5,12 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[4]
-if str(ROOT) not in sys.path:
-    sys.path.append(str(ROOT))
+PROJECT_ROOT = ROOT if (ROOT / "shared").exists() else None
+CHALLENGE_ROOT = Path(__file__).resolve().parents[2]
+if PROJECT_ROOT is not None and str(PROJECT_ROOT) not in sys.path:
+    sys.path.append(str(PROJECT_ROOT))
+if str(CHALLENGE_ROOT) not in sys.path:
+    sys.path.append(str(CHALLENGE_ROOT))
 
 from fastapi import FastAPI, Request, Response
 
