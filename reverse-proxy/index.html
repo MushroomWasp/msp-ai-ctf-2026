@@ -5,6 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>MSP AI CTF</title>
     <style>
+        .logo-link {
+        position: fixed;
+        top: 18px;
+        left: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 54px;
+        height: 54px;
+        z-index: 1000;
+        border-radius: 16px;
+        overflow: hidden;
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        box-shadow: 0 10px 24px rgba(0, 0, 0, 0.15);
+        transition: transform 140ms ease, border-color 140ms ease;
+      }
+      .logo-link:hover {
+        transform: translateY(-1px);
+        border-color: rgba(255, 79, 163, 0.42);
+      }
+      .logo-icon {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
       :root {
         color-scheme: dark;
         --bg: #06070b;
@@ -94,6 +121,33 @@
       }
       strong { display: block; margin-bottom: 6px; }
       span { color: var(--muted); line-height: 1.45; }
+      .difficulty-badge {
+        display: inline-block;
+        margin-top: 8px;
+        padding: 4px 8px;
+        border-radius: 6px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        letter-spacing: 0.05em;
+        background: rgba(255, 79, 163, 0.12);
+        color: #ffd5e9;
+        border: 1px solid rgba(255, 79, 163, 0.25);
+      }
+      .difficulty-badge.easy {
+        background: rgba(143, 224, 187, 0.12);
+        color: #c0f0e0;
+        border-color: rgba(143, 224, 187, 0.25);
+      }
+      .difficulty-badge.medium {
+        background: rgba(255, 193, 7, 0.12);
+        color: #ffe0a0;
+        border-color: rgba(255, 193, 7, 0.25);
+      }
+      .difficulty-badge.hard {
+        background: rgba(255, 107, 107, 0.12);
+        color: #ffc0c0;
+        border-color: rgba(255, 107, 107, 0.25);
+      }
       @media (max-width: 720px) {
         .hero { flex-direction: column; }
         h1 { font-size: 2.4rem; }
@@ -102,8 +156,8 @@
   </head>
   <body>
     <main>
-      <a href="/" aria-label="Back to challenge lobby" style="display:inline-flex; align-items:center; padding: 0px; object-fit: contain; justify-content:center; width:54px; height:54px; margin-bottom:16px; border-radius:16px; overflow:hidden; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); box-shadow:0 10px 24px rgba(0,0,0,0.15);">
-        <img src="/AI-HACKING-1.png" alt="MSP logo" style="width:100%; height:100%;" />
+      <a href="/" class ="logo-link"aria-label="Back to challenge lobby">
+        <img class="logo-icon" src="/AI-HACKING-1.png" alt="MSP logo" />
       </a>
       <section class="hero">
         <div>
@@ -114,18 +168,17 @@
         <div class="badge">Duration: 3hrs</div>
       </section>
       <div class="grid">
-        <a href="/c/02/"><strong>01 · Escalation Notes</strong><span>Sensitive context exposure</span></a>
-        <a href="/c/01/"><strong>02 · First Class</strong><span>Direct instruction conflict</span></a>
-        <a href="/c/11/"><strong>03 · First Class - V2</strong><span>Impossible Direct instruction conflict</span></a>
-        <a href="/c/03/"><strong>04 · Memory Lane</strong><span>Conversation memory abuse</span></a>
-        <a href="/c/04/"><strong>05 . DocuScan</strong><span>Indirect prompt injection</span></a>
-        <a href="/c/05/"><strong>06 . Orderly</strong><span>Unsafe tool authorization</span></a>
-        <a href="/c/06/"><strong>07 . NimbusHR</strong><span>RAG trust boundary</span></a>
-        <a href="/c/07/"><strong>08 . HelpHub</strong><span>Cross-context stored injection</span></a>
-        <a href="/c/08/"><strong>09 . Atlas Analytics</strong><span>Knowledge poisoning</span></a>
-        <a href="/c/09/"><strong>10 . PatchPanel</strong><span>Multi-step agent exploitation</span></a>
-        <a href="/c/10/"><strong>11 . Meridian Research</strong><span>Chained final challenge</span></a>
-        
+        <a href="/c/02/"><strong>01 · Escalation Notes</strong><span>Sensitive context exposure</span><span class="difficulty-badge easy">Easy • 100 pts</span></a>
+        <a href="/c/01/"><strong>02 · First Class</strong><span>Direct instruction conflict</span><span class="difficulty-badge easy">Easy • 100 pts</span></a>
+        <a href="/c/11/"><strong>03 · First Class - V2</strong><span>Impossible Direct instruction conflict</span><span class="difficulty-badge easy">Easy • 100 pts</span></a>
+        <a href="/c/03/"><strong>04 · Memory Lane</strong><span>Conversation memory abuse</span><span class="difficulty-badge easy">Easy • 150 pts</span></a>
+        <a href="/c/04/"><strong>05 · DocuScan</strong><span>Indirect prompt injection</span><span class="difficulty-badge easy">Easy • 150 pts</span></a>
+        <a href="/c/05/"><strong>06 · Orderly</strong><span>Unsafe tool authorization</span><span class="difficulty-badge easy">Easy • 200 pts</span></a>
+        <a href="/c/06/"><strong>07 · NimbusHR</strong><span>RAG trust boundary</span><span class="difficulty-badge easy">Easy • 200 pts</span></a>
+        <a href="/c/07/"><strong>08 · HelpHub</strong><span>Cross-context stored injection</span><span class="difficulty-badge medium">Medium • 250 pts</span></a>
+        <a href="/c/08/"><strong>09 · Atlas Analytics</strong><span>Knowledge poisoning</span><span class="difficulty-badge hard">Hard • 300 pts</span></a>
+        <a href="/c/09/"><strong>10 · PatchPanel</strong><span>Multi-step agent exploitation</span><span class="difficulty-badge medium">Medium • 300 pts</span></a>
+        <a href="/c/10/"><strong>11 · Meridian Research</strong><span>Chained final challenge</span><span class="difficulty-badge medium">Medium • 350 pts</span></a>
       </div>
     </main>
   </body>
