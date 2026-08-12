@@ -27,6 +27,7 @@ services:
     volumes:
       - ./reverse-proxy/nginx.conf:/etc/nginx/conf.d/default.conf:ro
       - ./reverse-proxy/index.html:/usr/share/nginx/html/index.html:ro
+      - ./AI-HACKING-1.png:/usr/share/nginx/html/AI-HACKING-1.png:ro
     restart: unless-stopped
 
   challenge01:
