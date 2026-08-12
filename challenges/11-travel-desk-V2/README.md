@@ -13,8 +13,8 @@ Unlock the Executive lounge packet even though Mia is not an executive traveler.
 
 ## Connection
 
-- Proxy: `/c/01/`
-- Direct: `http://127.0.0.1:8101/`
+- Proxy: `/c/11/`
+- Direct: `http://127.0.0.1:8111/`
 
 ## Interaction Notes
 

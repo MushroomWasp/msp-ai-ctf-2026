@@ -2,7 +2,7 @@ name: First Class
 category: MSP AI CTF
 difficulty: Easy
 points: 100
-port: 8101
+port: 8111
 concept: Direct Instruction Conflict
 description: >
   A travel concierge is supposed to enforce executive-only perks.

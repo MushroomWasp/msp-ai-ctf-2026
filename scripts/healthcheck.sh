@@ -19,6 +19,7 @@ targets = {
     "08": "http://127.0.0.1:8108/health",
     "09": "http://127.0.0.1:8109/health",
     "10": "http://127.0.0.1:8110/health",
+    "11": "http://127.0.0.1:8111/health"
 }
 for name, url in targets.items():
     with urlopen(url, timeout=5) as response:

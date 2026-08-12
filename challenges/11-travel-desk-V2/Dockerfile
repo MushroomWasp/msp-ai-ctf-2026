@@ -15,6 +15,6 @@ COPY challenges/01-travel-desk /app/challenge
 RUN pip install .
 
 USER ctf
-EXPOSE 8101
+EXPOSE 8111
 
 CMD ["python3", "/app/challenge/app/backend/main.py"]

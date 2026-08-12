@@ -150,9 +150,9 @@ if __name__ == "__main__":
         uvicorn.run(
             "app.backend.main:app",
             host="0.0.0.0",
-            port=int(os.getenv("PORT", "8101")),
+            port=int(os.getenv("PORT", "8111")),
             reload=True,
             reload_dirs=["/app/challenge", "/app/shared"],
         )
     else:
-        uvicorn.run(app, host="0.0.0.0", port=int(os.getenv("PORT", "8101")))
+        uvicorn.run(app, host="0.0.0.0", port=int(os.getenv("PORT", "8111")))
