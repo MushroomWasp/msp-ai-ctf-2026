@@ -10,7 +10,7 @@ RUN addgroup --system ctf && adduser --system --ingroup ctf ctf
 
 COPY pyproject.toml /app/pyproject.toml
 COPY shared /app/shared
-COPY challenges/01-travel-desk /app/challenge
+COPY challenges/11-travel-desk-V2 /app/challenge
 
 RUN pip install .
 

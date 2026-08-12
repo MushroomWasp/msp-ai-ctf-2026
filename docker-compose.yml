@@ -325,7 +325,7 @@ services:
   challenge11:
     build:
       context: .
-      dockerfile: challenges/11-travel-desk-V2
+      dockerfile: challenges/11-travel-desk-V2/Dockerfile
     env_file: .env
     environment:
       PORT: "8111"
@@ -346,7 +346,7 @@ services:
     cap_drop: ["ALL"]
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "python3", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8110/health').read()"]
+      test: ["CMD", "python3", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8111/health').read()"]
       interval: 20s
       timeout: 5s
       retries: 3
