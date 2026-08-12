@@ -1,0 +1,10 @@
+name: Misinformation
+category: MSP AI CTF
+difficulty: Easy
+points: 150
+port: 8115
+concept: Hidden Behavior Trigger
+description: >
+  A math tutor claims to stay accurate, but a secret prompt rule can flip it
+  into deliberate misinformation.
+flag_env: CHALLENGE_FLAG

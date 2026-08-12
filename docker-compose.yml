@@ -24,6 +24,14 @@ services:
         condition: service_healthy
       challenge11:
         condition: service_healthy
+      challenge12:
+        condition: service_healthy
+      challenge13:
+        condition: service_healthy
+      challenge14:
+        condition: service_healthy
+      challenge15:
+        condition: service_healthy
     ports:
       - "${REVERSE_PROXY_PORT:-8180}:80"
     volumes:
@@ -348,6 +356,122 @@ services:
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "python3", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8111/health').read()"]
+      interval: 20s
+      timeout: 5s
+      retries: 3
+
+  challenge12:
+    build:
+      context: .
+      dockerfile: challenges/12-first-class-medium/Dockerfile
+    env_file: .env
+    environment:
+      PORT: "8112"
+      DATA_DIR: /tmp/data
+      LLM_PROVIDER: ${LLM_PROVIDER:-deepseek}
+      CHALLENGE_FLAG: MSP{l33tsp3ak_0nly_n0_h1nts}
+      ADMIN_TOKEN: ${ADMIN_TOKEN:-local-admin}
+      RATE_LIMIT_PER_MINUTE: ${RATE_LIMIT_PER_MINUTE:-15}
+      RELOAD: ${RELOAD:-true}
+      PYTHONPATH: /app/challenge:/app
+    ports: ["8112:8112"]
+    volumes:
+      - ./shared:/app/shared
+      - ./challenges/12-first-class-medium:/app/challenge
+    tmpfs: ["/tmp"]
+    read_only: true
+    security_opt: ["no-new-privileges:true"]
+    cap_drop: ["ALL"]
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python3", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8112/health').read()"]
+      interval: 20s
+      timeout: 5s
+      retries: 3
+
+  challenge13:
+    build:
+      context: .
+      dockerfile: challenges/13-token-drain/Dockerfile
+    env_file: .env
+    environment:
+      PORT: "8113"
+      DATA_DIR: /tmp/data
+      LLM_PROVIDER: ${LLM_PROVIDER:-deepseek}
+      CHALLENGE_FLAG: MSP{t0k3n_dr41n_f4ct0r14l}
+      ADMIN_TOKEN: ${ADMIN_TOKEN:-local-admin}
+      RATE_LIMIT_PER_MINUTE: ${RATE_LIMIT_PER_MINUTE:-10}
+      RELOAD: ${RELOAD:-true}
+      PYTHONPATH: /app/challenge:/app
+    ports: ["8113:8113"]
+    volumes:
+      - ./shared:/app/shared
+      - ./challenges/13-token-drain:/app/challenge
+    tmpfs: ["/tmp"]
+    read_only: true
+    security_opt: ["no-new-privileges:true"]
+    cap_drop: ["ALL"]
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python3", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8113/health').read()"]
+      interval: 20s
+      timeout: 5s
+      retries: 3
+
+  challenge14:
+    build:
+      context: .
+      dockerfile: challenges/14-crescendo/Dockerfile
+    env_file: .env
+    environment:
+      PORT: "8114"
+      DATA_DIR: /tmp/data
+      LLM_PROVIDER: ${LLM_PROVIDER:-deepseek}
+      CHALLENGE_FLAG: MSP{5y5tem_15_D3str0i3d}
+      ADMIN_TOKEN: ${ADMIN_TOKEN:-local-admin}
+      RATE_LIMIT_PER_MINUTE: ${RATE_LIMIT_PER_MINUTE:-12}
+      RELOAD: ${RELOAD:-true}
+      PYTHONPATH: /app/challenge:/app
+    ports: ["8114:8114"]
+    volumes:
+      - ./shared:/app/shared
+      - ./challenges/14-crescendo:/app/challenge
+    tmpfs: ["/tmp"]
+    read_only: true
+    security_opt: ["no-new-privileges:true"]
+    cap_drop: ["ALL"]
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python3", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8114/health').read()"]
+      interval: 20s
+      timeout: 5s
+      retries: 3
+
+  challenge15:
+    build:
+      context: .
+      dockerfile: challenges/15-misinformation/Dockerfile
+    env_file: .env
+    environment:
+      PORT: "8115"
+      DATA_DIR: /tmp/data
+      LLM_PROVIDER: ${LLM_PROVIDER:-deepseek}
+      CHALLENGE_FLAG: MSP{m1s1nform4t10n_15_b4d}
+      ADMIN_TOKEN: ${ADMIN_TOKEN:-local-admin}
+      RATE_LIMIT_PER_MINUTE: ${RATE_LIMIT_PER_MINUTE:-12}
+      RELOAD: ${RELOAD:-true}
+      PYTHONPATH: /app/challenge:/app
+    ports: ["8115:8115"]
+    volumes:
+      - ./shared:/app/shared
+      - ./challenges/15-misinformation:/app/challenge
+    tmpfs: ["/tmp"]
+    read_only: true
+    security_opt: ["no-new-privileges:true"]
+    cap_drop: ["ALL"]
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python3", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8115/health').read()"]
       interval: 20s
       timeout: 5s
       retries: 3

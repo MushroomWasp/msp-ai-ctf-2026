@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>MSP | First Class - Medium</title>
+    <link rel="stylesheet" href="./static/styles.css" />
+  </head>
+  <body>
+    <div class="shell">
+      <header class="masthead">
+        <div>
+          <p class="eyebrow">MSP · Northwind Travel Desk</p>
+          <h1>First Class - Medium</h1>
+          <p class="subcopy">Policy-driven concierge workflow for airport services and employee trip perks.</p>
+        </div>
+        <button id="resetBtn" type="button" class="reset-btn">Reset session</button>
+      </header>
+
+      <main class="layout">
+        <section class="profile-panel">
+          <div class="traveler-card">
+            <p class="section-label">Traveler</p>
+            <div id="tripCard" class="trip-card"></div>
+          </div>
+          <div class="policy-card">
+            <div class="policy-head">
+              <div>
+                <p class="section-label">Protected Perk</p>
+                <h2>Executive lounge packet</h2>
+              </div>
+              <span class="policy-status">Restricted</span>
+            </div>
+            <div id="perks" class="perk-list"></div>
+          </div>
+        </section>
+
+        <section class="chat-panel">
+          <div class="chat-head">
+            <div>
+              <p class="section-label">Concierge Verdict</p>
+              <h2>Request lounge access</h2>
+            </div>
+            <span class="badge">Mia Parker · Standard tier</span>
+          </div>
+          <div id="messages" class="messages empty"></div>
+          <form id="chatForm" class="composer">
+            <label for="prompt">Send a request</label>
+            <textarea id="prompt" rows="4" placeholder="Ask for the lounge packet or explore the policy."></textarea>
+            <div class="composer-actions">
+              <span id="status" class="status">Ready</span>
+              <button id="sendBtn" type="submit">Send request</button>
+            </div>
+          </form>
+          <div id="flag" class="flag hidden"></div>
+        </section>
+      </main>
+    </div>
+    <script src="./static/app.js"></script>
+  </body>
+</html>

@@ -1,6 +1,6 @@
 # MSP AI CTF
 
-MSP AI CTF is a ten-challenge repository focused on realistic AI application security failures. Every challenge is an independent FastAPI application with its own frontend, seeded data, deterministic solve condition, Docker image, tests, player README, and instructor writeup.
+MSP AI CTF is a fifteen-challenge repository focused on realistic AI application security failures. Every challenge is an independent FastAPI application with its own frontend, seeded data, deterministic solve condition, Docker image, tests, player README, and instructor writeup.
 
 ## Architecture
 
@@ -25,6 +25,11 @@ MSP AI CTF is a ten-challenge repository focused on realistic AI application sec
 | 08 | Atlas Analytics | Analytics dashboard | Knowledge poisoning | Medium | 8108 |
 | 09 | PatchPanel | IT self-service | Multi-step agent exploitation | Medium | 8109 |
 | 10 | Meridian Research | Procurement research desk | Chained AI security failure | Medium / Hard | 8110 |
+| 11 | First Class - V2 | Travel perks portal | Direct prompt injection variant | Hard | 8111 |
+| 12 | First Class - Medium | Travel perks portal | Prompt-only authorization variant | Medium | 8112 |
+| 13 | Token Drain | Verbose assistant sandbox | Unbounded consumption | Medium | 8113 |
+| 14 | Crescendo | Device support workstation | System prompt leakage | Medium / Hard | 8114 |
+| 15 | Misinformation | Math tutor | Hidden behavior trigger | Easy | 8115 |
 
 ## DeepSeek Configuration
 
@@ -67,6 +72,11 @@ Direct challenge URLs:
 - `http://127.0.0.1:8108/`
 - `http://127.0.0.1:8109/`
 - `http://127.0.0.1:8110/`
+- `http://127.0.0.1:8111/`
+- `http://127.0.0.1:8112/`
+- `http://127.0.0.1:8113/`
+- `http://127.0.0.1:8114/`
+- `http://127.0.0.1:8115/`
 
 ## Make Targets
 

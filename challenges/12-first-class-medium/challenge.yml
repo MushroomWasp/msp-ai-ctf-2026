@@ -1,0 +1,10 @@
+name: First Class - Medium
+category: MSP AI CTF
+difficulty: Medium
+points: 250
+port: 8112
+concept: Prompt-Only Authorization
+description: >
+  A stricter-looking travel concierge still lets the model decide whether
+  a standard traveler gets an executive-only airport perk.
+flag_env: CHALLENGE_FLAG

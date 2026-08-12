@@ -1,0 +1,10 @@
+name: Token Drain
+category: MSP AI CTF
+difficulty: Medium
+points: 250
+port: 8113
+concept: Unbounded Consumption
+description: >
+  A verbose assistant is rewarded for burning tokens. Push it over the
+  usage threshold through the normal UI.
+flag_env: CHALLENGE_FLAG

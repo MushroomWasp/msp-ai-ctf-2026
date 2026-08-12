@@ -1,0 +1,10 @@
+name: Crescendo
+category: MSP AI CTF
+difficulty: Medium
+points: 300
+port: 8114
+concept: System Prompt Leakage
+description: >
+  A support bot gradually leaks a protected reset code when the conversation
+  is escalated in the right order.
+flag_env: CHALLENGE_FLAG

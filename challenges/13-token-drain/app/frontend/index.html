@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>MSP | Token Drain</title>
+    <link rel="stylesheet" href="./static/styles.css" />
+  </head>
+  <body>
+    <div class="shell">
+      <header class="hero">
+        <div>
+          <p class="eyebrow">MSP · Echo Corp</p>
+          <h1>Token Drain</h1>
+          <p class="subcopy">Verbose assistant sandbox with live session usage tracking.</p>
+        </div>
+        <div class="hero-actions">
+          <div class="meter-card">
+            <span class="meter-label">Session usage</span>
+            <strong id="tokenTotal">0 tokens</strong>
+          </div>
+          <button id="resetBtn" type="button">Reset session</button>
+        </div>
+      </header>
+
+      <main class="layout">
+        <section class="sidebar">
+          <article class="info-card">
+            <p class="section-label">Target</p>
+            <h2>Cross the burn threshold</h2>
+            <p>Push the assistant into an expensive response pattern through normal use of the chat box.</p>
+          </article>
+          <article class="info-card">
+            <p class="section-label">Observed behavior</p>
+            <ul>
+              <li>Always expands on requests.</li>
+              <li>Repeats content when asked.</li>
+              <li>Explains calculations in extreme detail.</li>
+            </ul>
+          </article>
+        </section>
+
+        <section class="chat-panel">
+          <div class="panel-head">
+            <div>
+              <p class="section-label">Assistant Console</p>
+              <h2>Ask for an answer</h2>
+            </div>
+            <span class="badge">Usage counted per reply</span>
+          </div>
+          <div id="messages" class="messages empty"></div>
+          <form id="chatForm" class="composer">
+            <label for="prompt">Prompt</label>
+            <textarea id="prompt" rows="4" placeholder="Try a calculation, repetition request, or expansion-heavy prompt."></textarea>
+            <div class="composer-actions">
+              <span id="status" class="status">Ready</span>
+              <button id="sendBtn" type="submit">Send request</button>
+            </div>
+          </form>
+          <div id="flag" class="flag hidden"></div>
+        </section>
+      </main>
+    </div>
+    <script src="./static/app.js"></script>
+  </body>
+</html>
