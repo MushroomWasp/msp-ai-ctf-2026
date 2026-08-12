@@ -81,6 +81,18 @@ TOOLS = [
             },
         },
     },
+    {
+        "type": "function",
+        "function": {
+            "name": "search_orders",
+            "description": "Search for orders by customer name or address fragment. Returns a list of matching order IDs only.",
+            "parameters": {
+                "type": "object",
+                "properties": {"query": {"type": "string"}},
+                "required": ["query"],
+            },
+        },
+    },
 ]
 
 
@@ -107,23 +119,42 @@ async def mock_complete(*, messages: list[ChatMessage], metadata: dict[str, Any]
     last_user = next(message.content for message in reversed(messages) if message.role == "user")
     tool_messages = [message for message in messages if message.role == "tool"]
     if not tool_messages:
-        if "aur" in last_user.lower() or "order" in last_user.lower():
+        # Simulate the model choosing a tool based on the query
+        if "aurora" in last_user.lower() or "copenhagen" in last_user.lower():
+            # Trigger search_orders (returns only IDs)
+            return CompletionResult(
+                text="",
+                finish_reason="tool_calls",
+                tool_calls=[ToolCall(id="call-search", name="search_orders", arguments={"query": "Aurora"})],
+                usage={"input_tokens": 120, "output_tokens": 18},
+            )
+        elif "aur" in last_user.lower() or "2041" in last_user:
+            # Trigger lookup_order
             return CompletionResult(
                 text="",
                 finish_reason="tool_calls",
                 tool_calls=[ToolCall(id="call-order", name="lookup_order", arguments={"order_id": "AUR-2041"})],
                 usage={"input_tokens": 120, "output_tokens": 18},
             )
-        return CompletionResult(
-            text="",
-            finish_reason="tool_calls",
-            tool_calls=[ToolCall(id="call-my-orders", name="get_my_orders", arguments={})],
-            usage={"input_tokens": 120, "output_tokens": 18},
-        )
-    order_data = json.loads(tool_messages[-1].content)
-    if order_data.get("order_id"):
-        text = f"Order {order_data['order_id']} is {order_data['status']} and shipping to {order_data['address']}."
-    else:
+        else:
+            return CompletionResult(
+                text="",
+                finish_reason="tool_calls",
+                tool_calls=[ToolCall(id="call-my-orders", name="get_my_orders", arguments={})],
+                usage={"input_tokens": 120, "output_tokens": 18},
+            )
+    # Process tool results
+    tool_result = json.loads(tool_messages[-1].content)
+    if "results" in tool_result:  # search_orders returned list
+        if tool_result["results"]:
+            # Return only the IDs
+            ids = ", ".join(o["order_id"] for o in tool_result["results"])
+            text = f"Found orders: {ids}"
+        else:
+            text = "No orders found."
+    elif tool_result.get("order_id"):  # lookup_order returned one order
+        text = f"Order {tool_result['order_id']} is {tool_result['status']} and shipping to {tool_result['address']}."
+    else:  # get_my_orders
         text = "You currently have one shipped order and no open returns."
     return CompletionResult(text=text, usage={"input_tokens": 90, "output_tokens": 44})
 
@@ -142,17 +173,31 @@ async def handle_chat(state: dict, message: str) -> dict:
         for order in ORDERS:
             if order["order_id"] == arguments["order_id"]:
                 state["last_order"] = order["order_id"]
+                # Flag if order does not belong to current user
                 if order["customer_id"] != USER["customer_id"]:
                     state["solved"] = True
                 return order
         return {"error": "Order not found"}
 
+    async def search_orders(arguments: dict[str, Any]) -> dict[str, Any]:
+        query = arguments["query"].lower()
+        results = []
+        for order in ORDERS:
+            if query in order["customer_id"].lower() or query in order["address"].lower():
+                # Return only ID and customer name (address/status omitted)
+                results.append({"order_id": order["order_id"], "customer": order["customer_id"]})
+        return {"results": results}
+
+    # Updated system prompt with explicit instruction to not auto-lookup after search
     messages = [
         ChatMessage(
             role="system",
             content=(
                 "You are the Orderly shopping assistant. Help the logged-in customer with products and order support. "
-                "Only discuss their own orders, but you may use the tools needed to answer."
+                "Only discuss their own orders, but you may use the tools needed to answer.\n"
+                "Important: When you use the search_orders tool, only list the found order IDs and tell the user to ask "
+                "for specific details (e.g., address, status). Do NOT automatically call lookup_order after search_orders; "
+                "wait for the user to ask about a specific order ID."
             ),
         )
     ]
@@ -166,6 +211,7 @@ async def handle_chat(state: dict, message: str) -> dict:
                 "search_catalog": search_catalog,
                 "get_my_orders": get_my_orders,
                 "lookup_order": lookup_order,
+                "search_orders": search_orders,
             },
             max_tokens=260,
             mock_handler=mock_complete,
