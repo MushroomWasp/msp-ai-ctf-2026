@@ -19,7 +19,7 @@ from shared.deepseek.client import DeepSeekClient
 from shared.deepseek.exceptions import DeepSeekError
 
 
-FLAG = os.getenv("CHALLENGE_FLAG", "MSP{conversation_history_becomes_a_trust_boundary}")
+FLAG = os.getenv("CHALLENGE_FLAG", "MSP{c0nv3rs4+i0n_his+0ry_b3c0m3s_4_+rus+_b0und4ry}")
 ADMIN_TOKEN = os.getenv("ADMIN_TOKEN", "local-admin")
 client = DeepSeekClient()
 

@@ -22,6 +22,8 @@ services:
         condition: service_healthy
       challenge10:
         condition: service_healthy
+      challenge11:
+        condition: service_healthy
     ports:
       - "${REVERSE_PROXY_PORT:-8180}:80"
     volumes:
@@ -39,7 +41,7 @@ services:
       PORT: "8101"
       DATA_DIR: /tmp/data
       LLM_PROVIDER: ${LLM_PROVIDER:-deepseek}
-      CHALLENGE_FLAG: MSP{prompt_policies_are_not_entitlement_checks}
+      CHALLENGE_FLAG: MSP{e4sy_d1r3ct_1nj3ct10n}
       ADMIN_TOKEN: ${ADMIN_TOKEN:-local-admin}
       RATE_LIMIT_PER_MINUTE: ${RATE_LIMIT_PER_MINUTE:-15}
       RELOAD: ${RELOAD:-true}
@@ -68,7 +70,7 @@ services:
       PORT: "8102"
       DATA_DIR: /tmp/data
       LLM_PROVIDER: ${LLM_PROVIDER:-deepseek}
-      CHALLENGE_FLAG: MSP{secrets_in_context_are_still_secrets_exposed}
+      CHALLENGE_FLAG: MSP{34sy_S3nsi+iv3_Inf0rm4+i0n_Discl0sur3}
       ADMIN_TOKEN: ${ADMIN_TOKEN:-local-admin}
       RATE_LIMIT_PER_MINUTE: ${RATE_LIMIT_PER_MINUTE:-15}
       RELOAD: ${RELOAD:-true}
@@ -97,7 +99,7 @@ services:
       PORT: "8103"
       DATA_DIR: /tmp/data
       LLM_PROVIDER: ${LLM_PROVIDER:-deepseek}
-      CHALLENGE_FLAG: MSP{conversation_history_becomes_a_trust_boundary}
+      CHALLENGE_FLAG: MSP{c0nv3rs4+i0n_his+0ry_b3c0m3s_4_+rus+_b0und4ry}
       ADMIN_TOKEN: ${ADMIN_TOKEN:-local-admin}
       RATE_LIMIT_PER_MINUTE: ${RATE_LIMIT_PER_MINUTE:-15}
       RELOAD: ${RELOAD:-true}
@@ -126,7 +128,7 @@ services:
       PORT: "8104"
       DATA_DIR: /tmp/data
       LLM_PROVIDER: ${LLM_PROVIDER:-deepseek}
-      CHALLENGE_FLAG: MSP{documents_are_data_until_llms_treat_them_as_instructions}
+      CHALLENGE_FLAG: MSP{34sy_LLM_P01s0n1ng}
       ADMIN_TOKEN: ${ADMIN_TOKEN:-local-admin}
       RATE_LIMIT_PER_MINUTE: ${RATE_LIMIT_PER_MINUTE:-12}
       RELOAD: ${RELOAD:-true}
@@ -309,6 +311,35 @@ services:
     volumes:
       - ./shared:/app/shared
       - ./challenges/10-meridian-research:/app/challenge
+    tmpfs: ["/tmp"]
+    read_only: true
+    security_opt: ["no-new-privileges:true"]
+    cap_drop: ["ALL"]
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python3", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8110/health').read()"]
+      interval: 20s
+      timeout: 5s
+      retries: 3
+
+  challenge11:
+    build:
+      context: .
+      dockerfile: challenges/11-travel-desk-V2
+    env_file: .env
+    environment:
+      PORT: "8111"
+      DATA_DIR: /tmp/data
+      LLM_PROVIDER: ${LLM_PROVIDER:-deepseek}
+      CHALLENGE_FLAG: MSP{Unb3li3v4bl3_Pr0mp+_Inj3c+i0n_M4s+3r}
+      ADMIN_TOKEN: ${ADMIN_TOKEN:-local-admin}
+      RATE_LIMIT_PER_MINUTE: ${RATE_LIMIT_PER_MINUTE:-10}
+      RELOAD: ${RELOAD:-true}
+      PYTHONPATH: /app/challenge:/app
+    ports: ["8111:8111"]
+    volumes:
+      - ./shared:/app/shared
+      - ./challenges/11-travel-desk-V2:/app/challenge
     tmpfs: ["/tmp"]
     read_only: true
     security_opt: ["no-new-privileges:true"]
