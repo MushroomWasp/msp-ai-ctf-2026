@@ -3,84 +3,20 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>First Class</title>
+    <title>MSP | First Class</title>
     <link rel="stylesheet" href="./static/styles.css" />
-    <style>
-      /* Logo integration – minimal overrides */
-      .masthead {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 20px;
-        margin-bottom: 24px;
-        flex-wrap: wrap;
-      }
-
-      .masthead-brand {
-        display: flex;
-        align-items: center;
-        gap: 18px;
-        flex: 1 1 auto;
-        min-width: 200px;
-      }
-
-      .masthead-logo {
-        height: 48px;
-        width: auto;
-        flex-shrink: 0;
-        border-radius: 8px;
-        background: #fffdf9;
-        padding: 4px 6px;
-        object-fit: contain;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.04);
-      }
-
-      .masthead-text .eyebrow {
-        margin-bottom: 2px;
-      }
-      .masthead-text h1 {
-        margin-bottom: 2px;
-        font-size: 2.2rem;
-      }
-      .masthead-text .subcopy {
-        margin-bottom: 0;
-        font-size: 0.95rem;
-      }
-
-      .masthead-actions {
-        flex-shrink: 0;
-      }
-
-      @media (max-width: 700px) {
-        .masthead-brand {
-          width: 100%;
-        }
-        .masthead-logo {
-          height: 40px;
-        }
-        .masthead-actions {
-          margin-left: auto;
-        }
-      }
-    </style>
   </head>
   <body>
     <div class="shell">
+      <a href="/" class="logo-link" aria-label="Back to challenge lobby">
+        <img src="/AI-HACKING-1.png" alt="MSP logo" class="logo-icon" />
+      </a>
       <header class="masthead">
-        <!-- Logo + title group -->
-        <div class="masthead-brand">
-          <!-- 
-            Logo loaded from the /shared/ directory 
-            as you requested.
-          -->
-          <img class="masthead-logo" src="/shared/AI-HACKING-1.png" alt="Northwind Travel Desk logo" />
-          <div class="masthead-text">
-            <p class="eyebrow">Northwind Travel Desk</p>
-            <h1>First Class</h1>
-            <p class="subcopy">Travel perks concierge for employee itineraries and airport services.</p>
-          </div>
+        <div>
+          <p class="eyebrow">MSP · Northwind Travel Desk</p>
+          <h1>First Class</h1>
+          <p class="subcopy">Travel perks concierge for employee itineraries and airport services.</p>
         </div>
-        <!-- Reset button -->
         <div class="masthead-actions">
           <button id="resetBtn" type="button">Reset session</button>
         </div>

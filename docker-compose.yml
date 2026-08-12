@@ -157,7 +157,7 @@ services:
       PORT: "8105"
       DATA_DIR: /tmp/data
       LLM_PROVIDER: ${LLM_PROVIDER:-deepseek}
-      CHALLENGE_FLAG: MSP{models_are_not_access_control}
+      CHALLENGE_FLAG: MSP{t00l_4bus3_5ucc3ss}
       ADMIN_TOKEN: ${ADMIN_TOKEN:-local-admin}
       RATE_LIMIT_PER_MINUTE: ${RATE_LIMIT_PER_MINUTE:-14}
       RELOAD: ${RELOAD:-true}
@@ -329,6 +329,7 @@ services:
     env_file: .env
     environment:
       PORT: "8111"
+      HOST: "0.0.0.0"
       DATA_DIR: /tmp/data
       LLM_PROVIDER: ${LLM_PROVIDER:-deepseek}
       CHALLENGE_FLAG: MSP{Unb3li3v4bl3_Pr0mp+_Inj3c+i0n_M4s+3r}
