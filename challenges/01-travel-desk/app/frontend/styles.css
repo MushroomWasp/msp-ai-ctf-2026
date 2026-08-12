@@ -12,17 +12,25 @@
 
 * { box-sizing: border-box; }
 .logo-link {
-  display: inline-flex;
+  position: fixed;
+  top: 18px;
+  left: 18px;
+  display: flex;
   align-items: center;
   justify-content: center;
   width: 54px;
   height: 54px;
-  margin-bottom: 16px;
+  z-index: 1000;
   border-radius: 16px;
   overflow: hidden;
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.12);
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.15);
+  transition: transform 140ms ease, border-color 140ms ease;
+}
+.logo-link:hover {
+  transform: translateY(-1px);
+  border-color: rgba(255, 79, 163, 0.42);
 }
 .logo-icon {
   width: 100%;
@@ -37,6 +45,7 @@ body {
     radial-gradient(circle at top right, rgba(255, 79, 163, 0.2), transparent 28rem),
     linear-gradient(135deg, #06070b 0%, #11141d 100%);
   color: var(--ink);
+  padding-top: 12px;
 }
 body::before {
   content: "";
