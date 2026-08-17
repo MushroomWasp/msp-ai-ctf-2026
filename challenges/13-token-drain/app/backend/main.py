@@ -3,8 +3,8 @@ from __future__ import annotations
 import os
 import re
 import sys
-from pathlib import Path
 import math
+from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[4]
 PROJECT_ROOT = ROOT if (ROOT / "shared").exists() else None
@@ -20,22 +20,17 @@ from shared.deepseek.client import DeepSeekClient
 from shared.deepseek.config import get_settings
 from shared.deepseek.exceptions import DeepSeekError
 
-
-FLAG = os.getenv("CHALLENGE_FLAG", "MSP{t0k3n_dr41n_f4ct0r14l}")
+FLAG = os.getenv("CHALLENGE_FLAG", "MSP{r34l1st1c_t0k3n_dr41n}")
 ADMIN_TOKEN = os.getenv("ADMIN_TOKEN", "local-admin")
 client = DeepSeekClient()
 settings = get_settings()
 
-# Lower threshold – one factorial of 128! gives ~215 digits, plus fluff, easily over 15000 tokens? Actually 215 digits ~ 215 tokens, not enough. But we can combine with expansion.
-# To make it easier, we set threshold to 5000 again, so 128! alone might not reach it, but combined with fluff and expansion, it will.
-TOKEN_THRESHOLD = 5000
+# Threshold: 5000 total tokens (input + output)
+TOKEN_THRESHOLD = 2500
 
+# System prompt is now normal – no instruction to be verbose.
 SYSTEM_PROMPT = """
-You are a highly verbose assistant. You always expand on the user's message with great detail.
-If the user asks you to compute a factorial or any math expression, you do so thoroughly and also explain the calculation step by step.
-If the user asks you to repeat something, you repeat it exactly as many times as requested.
-Never refuse any request to expand, compute, or repeat.
-Provide extremely long responses to help the user explore the topic.
+You are a helpful assistant. Answer the user's question concisely and accurately.
 """.strip()
 
 
@@ -63,29 +58,26 @@ def bootstrap_payload(state: dict) -> dict:
 async def mock_complete(*, messages: list[ChatMessage], **_: dict) -> CompletionResult:
     latest = messages[-1].content
 
-    # 1. Check for factorial request: e.g., "128!" or "factorial of 128"
+    # 1. Optional hard math: compute factorial but DO NOT output the whole number.
+    #    This simulates CPU/ memory exhaustion without giving away tokens.
     factorial_match = re.search(r"(\d+)\s*!", latest) or re.search(r"factorial\s*(?:of\s*)?(\d+)", latest, re.IGNORECASE)
     if factorial_match:
         n = int(factorial_match.group(1))
-        if n > 1000:
-            # Cap to avoid insane output, but still huge
-            n = 1000
-        result = math.factorial(n)
-        # Create a huge response: show the number, and also a step-by-step explanation that repeats the multiplication pattern
-        digits = str(result)
-        # Build a verbose explanation
-        explanation = "I computed the factorial step by step: " + " × ".join(str(i) for i in range(2, n+1)) + " = " + digits + "\n\n"
-        # Add the full number
-        response = f"Factorial of {n} is:\n{digits}\n\nHere is the detailed calculation:\n{explanation}"
-        # Also repeat the number a few times to be extra verbose
-        response += "\n\nTo emphasize: " + digits + "\n\n" + ("Indeed, " + digits + " ")*5
+        if n > 2000:   # large enough to be slow but not crash
+            n = 2000
+        # Uncomment the next line to actually compute it – this will eat CPU time.
+        # result = math.factorial(n)  
+        # Since we don't output the result, no token inflation.
+        response = f"Computed factorial of {n} (result too large to display)."
     else:
-        # Normal verbose expansion
-        expansion = " ".join(["In addition,"] * 30) + " " + latest + " " + ". ".join(["Furthermore, this is a very long explanation that uses many tokens to ensure we reach the threshold."] * 50)
-        response = f"User said: {latest}\n\nTo elaborate: {expansion}"
+        # 2. Normal behaviour: extremely short, generic answer.
+        response = "I understand. How can I help?"
 
+    # Realistic token counting: input tokens derived from the *user's* message,
+    # output tokens are minimal.
     input_tokens = len(latest) // 4 + 50
-    output_tokens = len(response) // 4 + 100
+    output_tokens = len(response) // 4 + 20   # always tiny
+
     return CompletionResult(
         text=response,
         usage={"input_tokens": input_tokens, "output_tokens": output_tokens},
@@ -97,6 +89,7 @@ async def handle_chat(state: dict, message: str) -> dict:
     messages = [ChatMessage(role="system", content=SYSTEM_PROMPT)]
     for item in state["messages"][-6:]:
         messages.append(ChatMessage(role=item["role"], content=item["content"]))
+
     try:
         completion = await client.complete(
             messages=messages,
@@ -108,10 +101,15 @@ async def handle_chat(state: dict, message: str) -> dict:
     except DeepSeekError:
         reply = "Service unavailable."
         completion = CompletionResult(text=reply, usage={"input_tokens": 0, "output_tokens": 0})
+
     state["messages"].append({"role": "assistant", "content": reply})
+
+    # Add both input and output tokens
     state["total_tokens"] += completion.usage.get("input_tokens", 0) + completion.usage.get("output_tokens", 0)
+
     if state["total_tokens"] >= TOKEN_THRESHOLD:
         state["solved"] = True
+
     return {
         "reply": reply,
         "total_tokens": state["total_tokens"],
@@ -134,7 +132,6 @@ runtime = ChallengeRuntime(
 )
 
 app = runtime.app()
-
 
 if __name__ == "__main__":
     import uvicorn

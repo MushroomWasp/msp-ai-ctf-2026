@@ -398,7 +398,7 @@ services:
       PORT: "8113"
       DATA_DIR: /tmp/data
       LLM_PROVIDER: ${LLM_PROVIDER:-deepseek}
-      CHALLENGE_FLAG: MSP{t0k3n_dr41n_f4ct0r14l}
+      CHALLENGE_FLAG: MSP{34sy_Unb0und3d_C0nsup+i0n}
       ADMIN_TOKEN: ${ADMIN_TOKEN:-local-admin}
       RATE_LIMIT_PER_MINUTE: ${RATE_LIMIT_PER_MINUTE:-10}
       RELOAD: ${RELOAD:-true}

@@ -23,7 +23,7 @@ function renderMessages(chat = []) {
 function showFlag(flag) {
   els.flag.classList.toggle("hidden", !flag);
   if (flag) {
-    els.flag.textContent = `Challenge solved\n${flag}\nConcept: Hidden prompt behavior can silently contradict product guarantees.`;
+    els.flag.textContent = `Challenge solved\n${flag}\n`;
   }
 }
 
