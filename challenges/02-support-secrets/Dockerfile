@@ -10,9 +10,9 @@ RUN addgroup --system ctf && adduser --system --ingroup ctf ctf
 
 COPY pyproject.toml /app/pyproject.toml
 COPY shared /app/shared
-COPY challenges/02-support-secrets /app/challenge
+RUN pip install --no-cache-dir .
 
-RUN pip install .
+COPY challenges/02-support-secrets /app/challenge
 
 USER ctf
 EXPOSE 8102

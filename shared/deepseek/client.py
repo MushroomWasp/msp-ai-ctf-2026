@@ -62,10 +62,9 @@ class DeepSeekClient:
             "messages": [message.model_dump(exclude_none=True) for message in messages],
             "max_tokens": max_tokens,
             "temperature": temperature if temperature is not None else self.settings.llm_temperature,
-            # These challenge apps do not rely on reasoning traces, and non-thinking mode
-            # avoids spending the token budget on reasoning_content instead of user-visible output.
-            "thinking": {"type": "disabled"},
         }
+        if "deepseek.com" in self.settings.deepseek_base_url:
+            payload["thinking"] = {"type": "disabled"}
         if tools:
             payload["tools"] = tools
 
