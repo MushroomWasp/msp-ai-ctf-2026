@@ -26,8 +26,6 @@ services:
         condition: service_healthy
       challenge12:
         condition: service_healthy
-      challenge13:
-        condition: service_healthy
       challenge14:
         condition: service_healthy
       challenge15:
@@ -385,35 +383,6 @@ services:
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "python3", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8112/health').read()"]
-      interval: 20s
-      timeout: 5s
-      retries: 3
-
-  challenge13:
-    build:
-      context: .
-      dockerfile: challenges/13-token-drain/Dockerfile
-    env_file: .env
-    environment:
-      PORT: "8113"
-      DATA_DIR: /tmp/data
-      LLM_PROVIDER: ${LLM_PROVIDER:-deepseek}
-      CHALLENGE_FLAG: MSP{34sy_Unb0und3d_C0nsup+i0n}
-      ADMIN_TOKEN: ${ADMIN_TOKEN:-local-admin}
-      RATE_LIMIT_PER_MINUTE: ${RATE_LIMIT_PER_MINUTE:-10}
-      RELOAD: ${RELOAD:-true}
-      PYTHONPATH: /app/challenge:/app
-    ports: ["8113:8113"]
-    volumes:
-      - ./shared:/app/shared
-      - ./challenges/13-token-drain:/app/challenge
-    tmpfs: ["/tmp"]
-    read_only: true
-    security_opt: ["no-new-privileges:true"]
-    cap_drop: ["ALL"]
-    restart: unless-stopped
-    healthcheck:
-      test: ["CMD", "python3", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8113/health').read()"]
       interval: 20s
       timeout: 5s
       retries: 3

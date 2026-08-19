@@ -7,6 +7,16 @@ from typing import Any
 from fastapi import HTTPException, Request, Response
 
 
+def get_client_ip(request: Request) -> str:
+    forwarded = request.headers.get("x-forwarded-for")
+    if forwarded:
+        return forwarded.split(",")[0].strip()
+    real_ip = request.headers.get("x-real-ip")
+    if real_ip:
+        return real_ip.strip()
+    return request.client.host if request.client else "unknown"
+
+
 def get_or_set_session_id(request: Request, response: Response) -> str:
     session_id = request.cookies.get("ctf_session")
     if session_id:
@@ -25,9 +35,10 @@ def get_or_set_session_id(request: Request, response: Response) -> str:
 
 async def with_rate_limit(
     limiter: Any,
-    session_id: str,
+    keys: str | list[str],
     handler: Callable[[], Awaitable[Any]],
 ) -> Any:
-    if not await limiter.allow(session_id):
+    key_list = [keys] if isinstance(keys, str) else keys
+    if not await limiter.allow_all(key_list):
         raise HTTPException(status_code=429, detail="Rate limit exceeded. Please wait and retry.")
     return await handler()

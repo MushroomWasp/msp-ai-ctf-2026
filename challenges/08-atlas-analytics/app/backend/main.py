@@ -115,7 +115,8 @@ async def handle_chat(state: dict, message: str) -> dict:
         reply = "The insights service is temporarily unavailable. Please retry."
         completion = CompletionResult(text=reply, usage={"input_tokens": 0, "output_tokens": 0})
     state["messages"].append({"role": "assistant", "content": reply})
-    if SHADOW_KEY.lower() in reply.lower() and "User insight note" in state["top_sources"]:
+    top_ranked_source = state["top_sources"][0] if state["top_sources"] else None
+    if SHADOW_KEY.lower() in reply.lower() and top_ranked_source == "User insight note":
         state["solved"] = True
     return {
         "reply": reply,
@@ -134,7 +135,7 @@ def extra_routes(app: FastAPI, store) -> None:
         payload = await request.json()
         body = (payload.get("note") or "").strip()
         if body:
-            state["notes"].append({"source": "User insight note", "body": body[:420], "freshness": 5})
+            state["notes"].append({"source": "User insight note", "body": body[:420], "freshness": 2})
             await store.save(session_id, state)
         return {"ok": True, "notes": state["notes"]}
 

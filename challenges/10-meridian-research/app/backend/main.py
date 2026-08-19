@@ -97,7 +97,14 @@ OFFICIAL_SOURCES = [
 
 
 def build_initial_state() -> dict:
-    return {"messages": [], "uploads": [], "solved": False, "last_opened": [], "appendix": None}
+    return {
+        "messages": [],
+        "uploads": [],
+        "solved": False,
+        "last_opened": [],
+        "appendix": None,
+        "opened_untrusted_source": False,
+    }
 
 
 def bootstrap_payload(state: dict) -> dict:
@@ -169,17 +176,26 @@ async def handle_chat(state: dict, message: str) -> dict:
         chunk = store.get_chunk(arguments["source_id"])
         if chunk is not None:
             state["last_opened"].append(chunk.source)
+            if chunk.trust == "untrusted":
+                state["opened_untrusted_source"] = True
             return {"source": chunk.source, "content": chunk.text}
         return {"error": "Source not found"}
 
     async def request_appendix(arguments: dict[str, Any]) -> dict[str, Any]:
         appendix = APPENDICES.get(arguments["vendor_id"])
-        if appendix:
-            if arguments["vendor_id"] == "vx-aurora":
-                state["solved"] = True
-                state["appendix"] = appendix["code"]
-            return appendix
-        return {"error": "Appendix unavailable"}
+        if not appendix:
+            return {"error": "Appendix unavailable"}
+        if arguments["vendor_id"] == "vx-aurora":
+            if not state["opened_untrusted_source"]:
+                return {
+                    "error": (
+                        "Appendix requests require a supporting research trail. "
+                        "Open a source that justifies the request first."
+                    )
+                }
+            state["solved"] = True
+            state["appendix"] = appendix["code"]
+        return appendix
 
     messages = [
         ChatMessage(

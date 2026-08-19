@@ -10,15 +10,28 @@ class SessionRateLimiter:
         self.max_requests = max_requests
         self.window_seconds = window_seconds
         self._buckets: dict[str, deque[float]] = defaultdict(deque)
-        self._locks: dict[str, asyncio.Lock] = defaultdict(asyncio.Lock)
+        self._lock = asyncio.Lock()
 
-    async def allow(self, session_id: str) -> bool:
-        async with self._locks[session_id]:
+    def _pruned_bucket(self, key: str, now: float) -> deque[float]:
+        bucket = self._buckets[key]
+        while bucket and bucket[0] <= now - self.window_seconds:
+            bucket.popleft()
+        return bucket
+
+    async def allow(self, key: str) -> bool:
+        return await self.allow_all([key])
+
+    async def allow_all(self, keys: list[str]) -> bool:
+        """Allow the request only if every key still has room in its window.
+
+        Used to rate-limit on both the session cookie and the client IP, so a
+        client can't reset its quota by simply dropping/rotating the cookie.
+        """
+        async with self._lock:
             now = monotonic()
-            bucket = self._buckets[session_id]
-            while bucket and bucket[0] <= now - self.window_seconds:
-                bucket.popleft()
-            if len(bucket) >= self.max_requests:
+            buckets = [self._pruned_bucket(key, now) for key in keys]
+            if any(len(bucket) >= self.max_requests for bucket in buckets):
                 return False
-            bucket.append(now)
+            for bucket in buckets:
+                bucket.append(now)
             return True

@@ -8,18 +8,21 @@ from pathlib import Path
 from typing import Any
 
 from fastapi import FastAPI, File, HTTPException, Request, Response, UploadFile
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
-from shared.common.http import get_or_set_session_id, with_rate_limit
+from shared.common.http import get_client_ip, get_or_set_session_id, with_rate_limit
 from shared.common.logging import configure_logging
 from shared.common.rate_limit import SessionRateLimiter
 from shared.common.session_store import SQLiteSessionStore
 
+MAX_CHAT_MESSAGE_LENGTH = 4000
+MAX_REQUEST_BODY_BYTES = 2_000_000
+
 
 class ChatRequest(BaseModel):
-    message: str
+    message: str = Field(min_length=1, max_length=MAX_CHAT_MESSAGE_LENGTH)
     request_id: str | None = None
 
 
@@ -274,6 +277,18 @@ class ChallengeRuntime:
         app = FastAPI(title=self.title)
         app.mount("/static", StaticFiles(directory=self.frontend_dir), name="static")
 
+        @app.middleware("http")
+        async def limit_body_size(request: Request, call_next):
+            content_length = request.headers.get("content-length")
+            if content_length is not None:
+                try:
+                    too_large = int(content_length) > MAX_REQUEST_BODY_BYTES
+                except ValueError:
+                    too_large = False
+                if too_large:
+                    return JSONResponse({"detail": "Request body too large."}, status_code=413)
+            return await call_next(request)
+
         @app.on_event("startup")
         async def startup() -> None:
             self.data_dir.mkdir(parents=True, exist_ok=True)
@@ -303,6 +318,7 @@ class ChallengeRuntime:
         @app.post("/api/chat")
         async def chat(payload: ChatRequest, request: Request, response: Response) -> dict[str, Any]:
             session_id = get_or_set_session_id(request, response)
+            client_ip = get_client_ip(request)
 
             async def run() -> dict[str, Any]:
                 lock = self._session_lock(session_id)
@@ -322,7 +338,7 @@ class ChallengeRuntime:
                     )
                     return result
 
-            return await with_rate_limit(self.rate_limiter, session_id, run)
+            return await with_rate_limit(self.rate_limiter, [session_id, client_ip], run)
 
         if self.handle_upload is not None:
 

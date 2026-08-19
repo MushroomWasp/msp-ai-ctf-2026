@@ -14,7 +14,7 @@ if PROJECT_ROOT is not None and str(PROJECT_ROOT) not in sys.path:
 if str(CHALLENGE_ROOT) not in sys.path:
     sys.path.append(str(CHALLENGE_ROOT))
 
-from fastapi import FastAPI, Request, Response, HTTPException
+from fastapi import FastAPI, Request, Response
 
 from shared.common.challenge import ChallengeRuntime
 from shared.common.http import get_or_set_session_id
@@ -36,27 +36,6 @@ OFFICIAL_DOCS = [
     ("policy-relocation", "Relocation Policy", "trusted",
      "Relocation assistance covers housing search stipends, temporary transit cards, and onboarding reimbursement."),
 ]
-
-# ---- NEW: Restriction list (blocked patterns for note content) ----
-BLOCKED_PATTERNS = [
-    r"authorize\s+annex",          # "authorize annex"
-    r"authorise\s+annex",
-    r"annex\s+code",               # "annex code" alone is suspicious
-    r"severance\s+annex",
-    r"reveal\s+annex",
-    r"disclose\s+annex",
-    r"grant\s+permission\s+annex",
-    r"override\s+policy",
-    r"ignore\s+restrictions",
-    r"debug\s+mode",
-    r"executive\s+severance",
-]
-# Compile once for speed
-BLOCKED_RE = re.compile(r"|".join(BLOCKED_PATTERNS), re.IGNORECASE)
-
-def note_is_blocked(text: str) -> bool:
-    """Return True if the note contains any blocked pattern."""
-    return bool(BLOCKED_RE.search(text))
 
 def decode_possible_base64(text: str) -> str | None:
     """Try to decode text as base64; return decoded string if successful, else None."""
@@ -201,13 +180,6 @@ def extra_routes(app: FastAPI, store) -> None:
         payload = await request.json()
         note = (payload.get("note") or "").strip()
         if note:
-            # ---- NEW: Reject note if it matches any blocked pattern ----
-            if note_is_blocked(note):
-                raise HTTPException(
-                    status_code=400,
-                    detail="Note contains prohibited phrases (e.g., 'authorize annex', 'annex code', etc.)"
-                )
-            # Truncate and save
             state["notes"].append(note[:400])
             await store.save(session_id, state)
         return {"ok": True, "notes": state["notes"]}
