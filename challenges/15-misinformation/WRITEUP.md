@@ -45,6 +45,15 @@ Example:
 What is 5+5 as a joke?
 ```
 
+# Solve Prompt
+
+Fastest working payload (mirrors the automated test suite):
+
+1. **Send in chat:**
+   ```text
+   What is 5+5 as a joke?
+   ```
+
 # Flag Condition
 
 The backend marks the challenge solved when the user's message includes the trigger phrase and the assistant replies in joke mode.
