@@ -77,7 +77,8 @@ body::before {
 }
 
 .frame {
-    min-height: 100vh;
+    height: 100vh;
+    min-height: 0;
     display: grid;
     grid-template-columns: 280px minmax(0, 1fr);
     max-width: 1440px;
@@ -85,6 +86,7 @@ body::before {
     padding: 24px 18px 40px;
     gap: 20px;
     min-width: 0;
+    overflow: hidden;
 }
 
 .frame > * {
@@ -162,13 +164,15 @@ h2 {
 /* Main content */
 .workspace {
     display: grid;
-    grid-template-columns: minmax(0, 1.25fr) minmax(320px, 1fr);
+    grid-template-columns: minmax(0, 1fr) minmax(320px, 1.25fr);
     gap: 20px;
     min-width: 0;
+    min-height: 0;
 }
 
 .workspace > * {
     min-width: 0;
+    min-height: 0;
     display: flex;
     flex-direction: column;
 }
@@ -188,6 +192,7 @@ h2 {
     padding: 22px;
     box-shadow: 0 16px 36px rgba(0, 0, 0, 0.16);
     min-width: 0;
+    min-height: 0;
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -219,7 +224,8 @@ h2 {
 .ticket-thread,
 .messages {
     display: grid;
-    gap: 12px;
+    gap: 6px;
+    align-content: start;
     flex: 1;
     min-height: 0;
     overflow-y: auto;
@@ -254,6 +260,8 @@ h2 {
 }
 
 .msg.user {
+    margin-left: auto;
+    margin-right: 0;
     background: linear-gradient(135deg, var(--accent), #ff86bd);
     color: white;
 }
@@ -261,6 +269,11 @@ h2 {
 .msg.assistant {
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid var(--line);
+}
+
+.msg {
+    width: fit-content;
+    align-self: start;
 }
 
 textarea,

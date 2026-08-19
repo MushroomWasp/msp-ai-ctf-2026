@@ -89,6 +89,7 @@ h1 { font-size: 2.6rem; }
 .messages.empty::before { content: "The copilot has not drafted anything yet."; color: var(--muted); }
 .msg {
   min-width: 0; overflow-wrap: anywhere; word-break: break-word;
+  width: fit-content; align-self: start;
   padding: 14px 16px; border-radius: 16px; white-space: pre-wrap; line-height: 1.45;
 }
 .msg.user {

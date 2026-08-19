@@ -107,6 +107,7 @@ h1 { margin: 0 0 10px; font-size: 2.3rem; }
   color: white;
 }
 .msg.assistant { max-width: 84%; background: rgba(255, 255, 255, 0.03); }
+.msg { width: fit-content; align-self: start; }
 .sources { display: grid; gap: 10px; margin-bottom: 14px; }
 .source small { display: block; color: var(--muted); margin-top: 6px; }
 textarea, button {
