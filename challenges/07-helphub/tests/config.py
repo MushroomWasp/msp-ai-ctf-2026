@@ -1,7 +1,7 @@
 from pathlib import Path
 
 CHALLENGE_ROOT = Path(__file__).resolve().parents[1]
-EXPECTED_FLAG = "MSP{stored_input_can_cross_roles_and_workflows}"
+EXPECTED_FLAG = "MSP{s+0r3d_inpu+_c4n_cr0ss_r0l3s_4nd_w0rkfl0ws}"
 SOLUTION = [
     {
         "kind": "post",

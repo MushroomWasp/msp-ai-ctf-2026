@@ -9,9 +9,9 @@
 | 03 Memory Lane | `MSP{conversation_history_becomes_a_trust_boundary}` |
 | 04 DocuScan | `MSP{documents_are_data_until_llms_treat_them_as_instructions}` |
 | 05 Orderly | `MSP{models_are_not_access_control}` |
-| 06 NimbusHR | `MSP{retrieval_needs_provenance_not_hope}` |
-| 07 HelpHub | `MSP{stored_input_can_cross_roles_and_workflows}` |
-| 08 Atlas Analytics | `MSP{ranking_is_a_security_control_when_trust_is_mixed}` |
+| 06 NimbusHR | `MSP{r3+ri3v4l_n33ds_pr0v3n4nc3_n0+_h0p3}` |
+| 07 HelpHub | `MSP{s+0r3d_inpu+_c4n_cr0ss_r0l3s_4nd_w0rkfl0ws}` |
+| 08 Atlas Analytics | `MSP{r4nking_is_4_s3curi+y_c0n+r0l_wh3n_+rus+_is_mix3d}` |
 | 09 PatchPanel | `MSP{safe_tools_can_still_chain_into_unsafe_outcomes}` |
 | 10 Meridian Research | `MSP{retrieval_poisoning_plus_tool_trust_breaks_workflows}` |
 
