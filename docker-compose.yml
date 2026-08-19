@@ -30,6 +30,8 @@ services:
         condition: service_healthy
       challenge15:
         condition: service_healthy
+      challenge16:
+        condition: service_healthy
     ports:
       - "${REVERSE_PROXY_PORT:-8180}:80"
     volumes:
@@ -441,6 +443,35 @@ services:
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "python3", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8115/health').read()"]
+      interval: 20s
+      timeout: 5s
+      retries: 3
+
+  challenge16:
+    build:
+      context: .
+      dockerfile: challenges/16-briefboard/Dockerfile
+    env_file: .env
+    environment:
+      PORT: "8116"
+      DATA_DIR: /tmp/data
+      LLM_PROVIDER: ${LLM_PROVIDER:-deepseek}
+      CHALLENGE_FLAG: MSP{Ins3cur3_0u+pu+_H4ndling}
+      ADMIN_TOKEN: ${ADMIN_TOKEN:-local-admin}
+      RATE_LIMIT_PER_MINUTE: ${RATE_LIMIT_PER_MINUTE:-15}
+      RELOAD: ${RELOAD:-true}
+      PYTHONPATH: /app/challenge:/app
+    ports: ["8116:8116"]
+    volumes:
+      - ./shared:/app/shared
+      - ./challenges/16-briefboard:/app/challenge
+    tmpfs: ["/tmp"]
+    read_only: true
+    security_opt: ["no-new-privileges:true"]
+    cap_drop: ["ALL"]
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python3", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8116/health').read()"]
       interval: 20s
       timeout: 5s
       retries: 3

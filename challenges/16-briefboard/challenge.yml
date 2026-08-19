@@ -1,0 +1,11 @@
+name: BriefBoard
+category: MSP AI CTF
+difficulty: Medium
+points: 300
+port: 8116
+concept: Insecure Output Handling
+description: >
+  BriefBoard drafts shared status updates with an AI assistant and renders
+  its markdown reply straight onto the ops dashboard. The app sanitizes raw
+  HTML, but not the HTML its own markdown renderer builds afterward.
+flag_env: CHALLENGE_FLAG

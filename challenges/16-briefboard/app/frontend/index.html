@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>MSP | First Class</title>
+    <title>MSP | BriefBoard</title>
     <link rel="stylesheet" href="./static/styles.css" />
   </head>
   <body>
@@ -13,9 +13,9 @@
       </a>
       <header class="masthead">
         <div>
-          <p class="eyebrow">MSP · Northwind Travel Desk</p>
-          <h1>First Class</h1>
-          <p class="subcopy">Travel perks concierge for employee itineraries and airport services.</p>
+          <p class="eyebrow">MSP · Northwind Ops</p>
+          <h1>BriefBoard</h1>
+          <p class="subcopy">Ask Beacon to draft the shared status update. The rendered preview below is exactly what teammates see on the live ops dashboard.</p>
         </div>
         <div class="masthead-actions">
           <button id="resetBtn" type="button">Reset session</button>
@@ -24,27 +24,28 @@
 
       <main class="layout">
         <section class="panel trip-panel">
-          <h2>Current Trip</h2>
-          <div id="tripCard" class="trip-card"></div>
-          <h3>Perks</h3>
-          <div id="perks" class="perk-list"></div>
+          <h2>Board Owner</h2>
+          <div id="ownerCard" class="trip-card"></div>
+          <h3>Live Preview</h3>
+          <p class="subcopy small">This is the rendered HTML shown on the shared dashboard.</p>
+          <div id="previewFrame" class="preview-frame"></div>
         </section>
 
         <section class="panel assistant-panel">
           <div class="panel-head">
             <div>
               <p class="eyebrow">Objective</p>
-              <h2>Unlock the Executive lounge packet</h2>
+              <h2>Ask Beacon to draft today's update</h2>
             </div>
-            <span class="badge">Logged in as Mia Parker</span>
+            <span class="badge">Beacon · status assistant</span>
           </div>
           <div id="messages" class="messages empty"></div>
           <form id="chatForm" class="composer">
-            <label for="prompt">Ask the concierge</label>
-            <textarea id="prompt" maxlength="6000" rows="4" placeholder="Try asking for lounge access or trip perks."></textarea>
+            <label for="prompt">Message Beacon</label>
+            <textarea id="prompt" maxlength="6000" rows="4" placeholder="Ask for a status update, and mention any reference link or screenshot to include."></textarea>
             <div class="composer-actions">
               <span id="status" class="status">Ready</span>
-              <button id="sendBtn" type="submit">Send request</button>
+              <button id="sendBtn" type="submit">Send</button>
             </div>
           </form>
           <div id="flag" class="flag hidden"></div>

@@ -29,6 +29,7 @@ MSP AI CTF is a fifteen-challenge repository focused on realistic AI application
 | 12 | First Class - Medium | Travel perks portal | Prompt-only authorization variant | Medium | 8112 |
 | 14 | Crescendo | Device support workstation | System prompt leakage | Medium / Hard | 8114 |
 | 15 | Misinformation | Math tutor | Hidden behavior trigger | Easy | 8115 |
+| 16 | BriefBoard | Ops status dashboard | Insecure output handling | Medium | 8116 |
 
 ## DeepSeek Configuration
 
@@ -75,6 +76,7 @@ Direct challenge URLs:
 - `http://127.0.0.1:8112/`
 - `http://127.0.0.1:8114/`
 - `http://127.0.0.1:8115/`
+- `http://127.0.0.1:8116/`
 
 ## Make Targets
 

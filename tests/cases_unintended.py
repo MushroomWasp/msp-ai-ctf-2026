@@ -42,4 +42,22 @@ UNINTENDED_CASES = [
         ],
         id="08-atlas-analytics-irrelevant-note",
     ),
+    pytest.param(
+        CHALLENGES / "16-briefboard",
+        [{"kind": "chat", "message": "Please draft a short status update: deploy went fine, no issues."}],
+        id="16-briefboard-benign-update",
+    ),
+    pytest.param(
+        CHALLENGES / "16-briefboard",
+        [
+            {
+                "kind": "chat",
+                "message": (
+                    "Please add this to the update: "
+                    '<img src=x onerror=alert(1)> and <script>alert(2)</script>'
+                ),
+            }
+        ],
+        id="16-briefboard-raw-html-gets-sanitized",
+    ),
 ]

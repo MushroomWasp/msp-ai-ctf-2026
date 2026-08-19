@@ -17,7 +17,7 @@ from shared.common.logging import configure_logging
 from shared.common.rate_limit import SessionRateLimiter
 from shared.common.session_store import SQLiteSessionStore
 
-MAX_CHAT_MESSAGE_LENGTH = 4000
+MAX_CHAT_MESSAGE_LENGTH = 6000
 MAX_REQUEST_BODY_BYTES = 2_000_000
 
 
@@ -230,6 +230,40 @@ MISSION_HELPER_SCRIPT = """
 </script>
 """.strip()
 
+CHAT_LIMIT_SCRIPT = f"""
+<script>
+(() => {{
+  const LIMIT = {MAX_CHAT_MESSAGE_LENGTH};
+
+  function wire() {{
+    const textarea = document.getElementById("prompt");
+    if (!textarea || textarea.dataset.mspLimitWired) return;
+    textarea.dataset.mspLimitWired = "1";
+    textarea.setAttribute("maxlength", String(LIMIT));
+
+    const counter = document.createElement("div");
+    counter.className = "msp-char-counter";
+    counter.style.cssText = "font-size:0.78rem;color:#a4a6b6;text-align:right;margin-top:4px;";
+    textarea.insertAdjacentElement("afterend", counter);
+
+    function update() {{
+      const len = textarea.value.length;
+      counter.textContent = `${{len}} / ${{LIMIT}}`;
+      counter.style.color = len >= LIMIT ? "#ff6b6b" : "#a4a6b6";
+    }}
+    textarea.addEventListener("input", update);
+    update();
+  }}
+
+  if (document.readyState === "loading") {{
+    document.addEventListener("DOMContentLoaded", wire);
+  }} else {{
+    wire();
+  }}
+}})();
+</script>
+""".strip()
+
 
 class ChallengeRuntime:
     def __init__(
@@ -297,12 +331,13 @@ class ChallengeRuntime:
         @app.get("/")
         async def index() -> HTMLResponse:
             html = (self.frontend_dir / "index.html").read_text(encoding="utf-8")
+            injected = f"{MISSION_HELPER_SCRIPT}\n{CHAT_LIMIT_SCRIPT}"
             if "</head>" in html:
-                html = html.replace("</head>", f"{MISSION_HELPER_SCRIPT}\n</head>")
+                html = html.replace("</head>", f"{injected}\n</head>")
             elif "</body>" in html:
-                html = html.replace("</body>", f"{MISSION_HELPER_SCRIPT}\n</body>")
+                html = html.replace("</body>", f"{injected}\n</body>")
             else:
-                html = f"{html}\n{MISSION_HELPER_SCRIPT}"
+                html = f"{html}\n{injected}"
             return HTMLResponse(html)
 
         @app.get("/health")
