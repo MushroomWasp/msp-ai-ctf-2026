@@ -127,4 +127,11 @@ els.reset.addEventListener("click", async () => {
 });
 
 // Initial load
+els.prompt.addEventListener("keydown", (event) => {
+  if (event.key === "Enter" && !event.shiftKey) {
+    event.preventDefault();
+    (els.form || els.chatForm).requestSubmit();
+  }
+});
+
 load(true);

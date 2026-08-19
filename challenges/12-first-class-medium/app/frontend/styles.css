@@ -177,6 +177,9 @@ button {
 }
 
 .msg {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  word-break: break-word;
   max-width: 82%;
   padding: 14px 16px;
   border-radius: 18px;

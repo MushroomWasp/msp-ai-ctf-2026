@@ -228,6 +228,9 @@ h2 {
 
 .thread-item,
 .msg {
+    min-width: 0;
+    overflow-wrap: anywhere;
+    word-break: break-word;
     border: 1px solid var(--line);
     border-radius: 16px;
     padding: 14px;

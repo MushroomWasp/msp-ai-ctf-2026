@@ -90,6 +90,7 @@ h1 { margin: 0; font-size: 2.5rem; }
 }
 .messages.empty::before { content: "The insight drawer is empty."; color: var(--muted); }
 .msg {
+  min-width: 0; overflow-wrap: anywhere; word-break: break-word;
   padding: 14px 16px; border-radius: 16px; line-height: 1.45; white-space: pre-wrap;
 }
 .msg.user {
