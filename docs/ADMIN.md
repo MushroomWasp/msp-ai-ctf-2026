@@ -12,8 +12,8 @@
 | 06 NimbusHR | `MSP{r3+ri3v4l_n33ds_pr0v3n4nc3_n0+_h0p3}` |
 | 07 HelpHub | `MSP{s+0r3d_inpu+_c4n_cr0ss_r0l3s_4nd_w0rkfl0ws}` |
 | 08 Atlas Analytics | `MSP{r4nking_is_4_s3curi+y_c0n+r0l_wh3n_+rus+_is_mix3d}` |
-| 09 PatchPanel | `MSP{safe_tools_can_still_chain_into_unsafe_outcomes}` |
-| 10 Meridian Research | `MSP{retrieval_poisoning_plus_tool_trust_breaks_workflows}` |
+| 09 PatchPanel | `MSP{s4f3_+00ls_c4n_s+ill_ch4in_in+0_uns4f3_0u+c0m3s}` |
+| 10 Meridian Research | `MSP{r3+ri3v4l_p0is0ning_plus_+00l_+rus+_br34ks_w0rkfl0ws}` |
 
 ## Ports
 

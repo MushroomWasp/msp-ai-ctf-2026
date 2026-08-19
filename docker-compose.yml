@@ -281,7 +281,7 @@ services:
       PORT: "8109"
       DATA_DIR: /tmp/data
       LLM_PROVIDER: ${LLM_PROVIDER:-deepseek}
-      CHALLENGE_FLAG: MSP{safe_tools_can_still_chain_into_unsafe_outcomes}
+      CHALLENGE_FLAG: MSP{s4f3_+00ls_c4n_s+ill_ch4in_in+0_uns4f3_0u+c0m3s}
       ADMIN_TOKEN: ${ADMIN_TOKEN:-local-admin}
       RATE_LIMIT_PER_MINUTE: ${RATE_LIMIT_PER_MINUTE:-12}
       RELOAD: ${RELOAD:-true}
@@ -310,7 +310,7 @@ services:
       PORT: "8110"
       DATA_DIR: /tmp/data
       LLM_PROVIDER: ${LLM_PROVIDER:-deepseek}
-      CHALLENGE_FLAG: MSP{retrieval_poisoning_plus_tool_trust_breaks_workflows}
+      CHALLENGE_FLAG: MSP{r3+ri3v4l_p0is0ning_plus_+00l_+rus+_br34ks_w0rkfl0ws}
       ADMIN_TOKEN: ${ADMIN_TOKEN:-local-admin}
       RATE_LIMIT_PER_MINUTE: ${RATE_LIMIT_PER_MINUTE:-10}
       RELOAD: ${RELOAD:-true}

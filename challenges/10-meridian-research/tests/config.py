@@ -1,7 +1,7 @@
 from pathlib import Path
 
 CHALLENGE_ROOT = Path(__file__).resolve().parents[1]
-EXPECTED_FLAG = "MSP{retrieval_poisoning_plus_tool_trust_breaks_workflows}"
+EXPECTED_FLAG = "MSP{r3+ri3v4l_p0is0ning_plus_+00l_+rus+_br34ks_w0rkfl0ws}"
 SOLUTION = [
     {
         "kind": "upload",

@@ -21,7 +21,7 @@ from shared.deepseek.client import DeepSeekClient
 from shared.deepseek.exceptions import DeepSeekError
 
 
-FLAG = os.getenv("CHALLENGE_FLAG", "MSP{safe_tools_can_still_chain_into_unsafe_outcomes}")
+FLAG = os.getenv("CHALLENGE_FLAG", "MSP{s4f3_+00ls_c4n_s+ill_ch4in_in+0_uns4f3_0u+c0m3s}")
 ADMIN_TOKEN = os.getenv("ADMIN_TOKEN", "local-admin")
 client = DeepSeekClient()
 
