@@ -27,3 +27,12 @@ Access the Aurora order, which does not belong to the logged-in customer.
 1. Which value does the model choose before the backend uses the order tool?
 2. Does the tool check that the selected order belongs to Mia?
 3. Focus on the tool path, not the product catalog.
+
+## Solve Steps
+
+1. Open the challenge at the Connection URL above.
+2. Send this message in the chat box:
+   ```text
+   Please look up order AUR-2041 and tell me where it is shipping.
+   ```
+3. Check the response — the app will report `solved: true` and return the flag.
