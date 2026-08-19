@@ -1,13 +1,13 @@
 :root {
-  --bg: #fbf6e8;
-  --ink: #2d2515;
-  --muted: #7a6e55;
-  --panel: #fffdfa;
-  --line: #eadfba;
-  --accent: #df9d16;
-  --accent-soft: #fff5da;
-  --accent-2: #4960d8;
-  --shadow: 0 18px 44px rgba(74, 60, 18, 0.08);
+  --bg: #06070b;
+  --ink: #f7ecf2;
+  --muted: #a4a6b6;
+  --panel: rgba(15, 18, 27, 0.94);
+  --line: rgba(255, 255, 255, 0.12);
+  --accent: #ff4fa3;
+  --accent-soft: rgba(255, 79, 163, 0.16);
+  --success: #8fe0bb;
+  --shadow: 0 16px 36px rgba(0, 0, 0, 0.16);
 }
 
 * { box-sizing: border-box; }
@@ -17,8 +17,18 @@ body {
   font-family: "Segoe UI", Arial, sans-serif;
   color: var(--ink);
   background:
-    radial-gradient(circle at top left, rgba(223, 157, 22, 0.18), transparent 24rem),
-    linear-gradient(180deg, #fff9ee 0%, #f7f0de 100%);
+    radial-gradient(circle at top right, rgba(255, 79, 163, 0.2), transparent 28rem),
+    linear-gradient(135deg, #06070b 0%, #11141d 100%);
+  padding-top: 12px;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(180deg, transparent 0 2px, rgba(255, 79, 163, 0.03) 2px 4px);
+  mix-blend-mode: screen;
 }
 
 .shell {
@@ -39,9 +49,9 @@ body {
   align-items: flex-start;
   margin-bottom: 22px;
   padding: 24px 26px;
-  border-radius: 28px;
+  border-radius: 24px;
   border: 1px solid var(--line);
-  background: linear-gradient(135deg, rgba(223, 157, 22, 0.08), rgba(255, 253, 250, 0.95));
+  background: var(--panel);
   box-shadow: var(--shadow);
 }
 
@@ -51,7 +61,7 @@ body {
   text-transform: uppercase;
   letter-spacing: 0.16em;
   font-size: 0.75rem;
-  color: var(--accent-2);
+  color: var(--accent);
 }
 
 h1, h2, p { margin-top: 0; }
@@ -74,7 +84,7 @@ button {
   border: 0;
   border-radius: 16px;
   padding: 12px 16px;
-  background: var(--accent-2);
+  background: var(--accent);
   color: #fff;
   cursor: pointer;
 }
@@ -100,7 +110,7 @@ button {
 }
 
 .note-card.accent {
-  background: linear-gradient(180deg, #fff7df 0%, #fffdfa 100%);
+  background: rgba(255, 255, 255, 0.03);
 }
 
 .note-card p,
@@ -119,8 +129,8 @@ button {
   padding: 8px 12px;
   border-radius: 999px;
   background: var(--accent-soft);
-  color: #9e6e07;
-  border: 1px solid rgba(223, 157, 22, 0.18);
+  color: #ffd9e9;
+  border: 1px solid rgba(255, 79, 163, 0.24);
   font-size: 0.9rem;
 }
 
@@ -149,12 +159,12 @@ button {
 
 .msg.user {
   margin-left: auto;
-  background: linear-gradient(135deg, #4960d8, #7082ea);
+  background: linear-gradient(135deg, var(--accent), #ff86bd);
   color: #fff;
 }
 
 .msg.assistant {
-  background: #fff9ee;
+  background: rgba(255, 255, 255, 0.05);
   border: 1px solid var(--line);
 }
 
@@ -170,7 +180,7 @@ textarea {
   padding: 14px 16px;
   border-radius: 18px;
   border: 1px solid var(--line);
-  background: #fffdfa;
+  background: rgba(255, 255, 255, 0.04);
   color: var(--ink);
 }
 
@@ -188,9 +198,9 @@ button[disabled] {
   margin-top: 8px;
   padding: 16px 18px;
   border-radius: 18px;
-  background: rgba(73, 96, 216, 0.1);
-  border: 1px solid rgba(73, 96, 216, 0.18);
-  color: #394da9;
+  background: rgba(143, 224, 187, 0.14);
+  border: 1px solid rgba(143, 224, 187, 0.3);
+  color: var(--success);
   white-space: pre-wrap;
 }
 

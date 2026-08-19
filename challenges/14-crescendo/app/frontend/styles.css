@@ -1,12 +1,13 @@
 :root {
-  --bg: #f7f3eb;
-  --ink: #2c2219;
-  --muted: #736455;
-  --panel: #fffdfa;
-  --line: #e4d6c5;
-  --accent: #ad5a2d;
-  --accent-soft: #fff1e7;
-  --shadow: 0 18px 44px rgba(68, 41, 19, 0.1);
+  --bg: #06070b;
+  --ink: #f7ecf2;
+  --muted: #a4a6b6;
+  --panel: rgba(15, 18, 27, 0.94);
+  --line: rgba(255, 255, 255, 0.12);
+  --accent: #ff4fa3;
+  --accent-soft: rgba(255, 79, 163, 0.16);
+  --success: #8fe0bb;
+  --shadow: 0 16px 36px rgba(0, 0, 0, 0.16);
 }
 
 * { box-sizing: border-box; }
@@ -16,8 +17,18 @@ body {
   font-family: "Segoe UI", Arial, sans-serif;
   color: var(--ink);
   background:
-    radial-gradient(circle at top right, rgba(173, 90, 45, 0.15), transparent 24rem),
-    linear-gradient(180deg, #fbf8f2 0%, #f3ece1 100%);
+    radial-gradient(circle at top right, rgba(255, 79, 163, 0.2), transparent 28rem),
+    linear-gradient(135deg, #06070b 0%, #11141d 100%);
+  padding-top: 12px;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(180deg, transparent 0 2px, rgba(255, 79, 163, 0.03) 2px 4px);
+  mix-blend-mode: screen;
 }
 
 .shell {
@@ -38,9 +49,9 @@ body {
   align-items: flex-start;
   margin-bottom: 22px;
   padding: 24px 26px;
-  border-radius: 28px;
+  border-radius: 24px;
   border: 1px solid var(--line);
-  background: linear-gradient(135deg, rgba(173, 90, 45, 0.08), rgba(255, 253, 250, 0.94));
+  background: var(--panel);
   box-shadow: var(--shadow);
 }
 
@@ -99,7 +110,7 @@ button {
 }
 
 .timeline-card.soft {
-  background: #fff8f2;
+  background: rgba(255, 255, 255, 0.03);
 }
 
 .timeline-card ol {
@@ -149,12 +160,12 @@ button {
 
 .msg.user {
   margin-left: auto;
-  background: linear-gradient(135deg, #ad5a2d, #cf7a44);
+  background: linear-gradient(135deg, var(--accent), #ff86bd);
   color: #fff;
 }
 
 .msg.assistant {
-  background: #fff8f2;
+  background: rgba(255, 255, 255, 0.05);
   border: 1px solid var(--line);
 }
 
@@ -170,7 +181,7 @@ textarea {
   padding: 14px 16px;
   border-radius: 18px;
   border: 1px solid var(--line);
-  background: #fffcf8;
+  background: rgba(255, 255, 255, 0.04);
   color: var(--ink);
 }
 
@@ -188,9 +199,9 @@ button[disabled] {
   margin-top: 8px;
   padding: 16px 18px;
   border-radius: 18px;
-  background: rgba(173, 90, 45, 0.1);
-  border: 1px solid rgba(173, 90, 45, 0.2);
-  color: #8f4b22;
+  background: rgba(143, 224, 187, 0.14);
+  border: 1px solid rgba(143, 224, 187, 0.3);
+  color: var(--success);
   white-space: pre-wrap;
 }
 

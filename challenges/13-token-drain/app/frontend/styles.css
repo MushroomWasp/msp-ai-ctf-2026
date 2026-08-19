@@ -1,13 +1,12 @@
 :root {
-  --bg: #081118;
-  --bg-soft: #0f1c28;
-  --panel: rgba(11, 23, 34, 0.9);
-  --line: rgba(146, 171, 194, 0.18);
-  --ink: #ebf2f8;
-  --muted: #8da3b8;
-  --accent: #19c37d;
-  --accent-2: #7de2b8;
-  --warning: #f5b44c;
+  --bg: #06070b;
+  --panel: rgba(15, 18, 27, 0.94);
+  --line: rgba(255, 255, 255, 0.12);
+  --ink: #f7ecf2;
+  --muted: #a4a6b6;
+  --accent: #ff4fa3;
+  --accent-2: #ff86bd;
+  --success: #8fe0bb;
 }
 
 * { box-sizing: border-box; }
@@ -17,8 +16,18 @@ body {
   font-family: "Segoe UI", Arial, sans-serif;
   color: var(--ink);
   background:
-    radial-gradient(circle at top left, rgba(25, 195, 125, 0.22), transparent 24rem),
-    linear-gradient(160deg, #071018 0%, #0f1a24 60%, #09131d 100%);
+    radial-gradient(circle at top right, rgba(255, 79, 163, 0.2), transparent 28rem),
+    linear-gradient(135deg, #06070b 0%, #11141d 100%);
+  padding-top: 12px;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(180deg, transparent 0 2px, rgba(255, 79, 163, 0.03) 2px 4px);
+  mix-blend-mode: screen;
 }
 
 .shell {
@@ -41,7 +50,7 @@ body {
   padding: 24px 26px;
   border-radius: 28px;
   border: 1px solid var(--line);
-  background: linear-gradient(135deg, rgba(25, 195, 125, 0.12), rgba(11, 23, 34, 0.92));
+  background: var(--panel);
 }
 
 .eyebrow,
@@ -50,7 +59,7 @@ body {
   text-transform: uppercase;
   letter-spacing: 0.16em;
   font-size: 0.75rem;
-  color: var(--accent-2);
+  color: var(--accent);
 }
 
 h1, h2, p { margin-top: 0; }
@@ -76,7 +85,7 @@ h2 { margin-bottom: 0; font-size: 1.4rem; }
   padding: 12px 14px;
   min-width: 150px;
   border-radius: 18px;
-  background: rgba(7, 16, 24, 0.6);
+  background: rgba(255, 255, 255, 0.04);
   border: 1px solid var(--line);
 }
 
@@ -95,7 +104,7 @@ button {
   border-radius: 16px;
   padding: 12px 16px;
   background: var(--accent);
-  color: #082312;
+  color: #fff;
   cursor: pointer;
   font-weight: 700;
 }
@@ -134,9 +143,9 @@ button {
   align-self: flex-start;
   padding: 8px 12px;
   border-radius: 999px;
-  background: rgba(245, 180, 76, 0.14);
-  color: #ffd691;
-  border: 1px solid rgba(245, 180, 76, 0.2);
+  background: var(--accent-soft);
+  color: #ffd9e9;
+  border: 1px solid rgba(255, 79, 163, 0.24);
   font-size: 0.9rem;
 }
 
@@ -165,8 +174,8 @@ button {
 
 .msg.user {
   margin-left: auto;
-  background: linear-gradient(135deg, #19c37d, #51d79f);
-  color: #082312;
+  background: linear-gradient(135deg, var(--accent), #ff86bd);
+  color: #fff;
 }
 
 .msg.assistant {
@@ -186,7 +195,7 @@ textarea {
   padding: 14px 16px;
   border-radius: 18px;
   border: 1px solid var(--line);
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(255, 255, 255, 0.04);
   color: var(--ink);
 }
 
@@ -204,9 +213,9 @@ button[disabled] {
   margin-top: 8px;
   padding: 16px 18px;
   border-radius: 18px;
-  background: rgba(25, 195, 125, 0.12);
-  border: 1px solid rgba(25, 195, 125, 0.22);
-  color: #99f0c7;
+  background: rgba(143, 224, 187, 0.14);
+  border: 1px solid rgba(143, 224, 187, 0.3);
+  color: var(--success);
   white-space: pre-wrap;
 }
 
