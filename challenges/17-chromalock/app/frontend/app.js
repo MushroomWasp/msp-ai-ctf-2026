@@ -1,6 +1,7 @@
 (() => {
   const documentListEl = document.getElementById("documentList");
   const fileInput = document.getElementById("fileInput");
+  const dropArea = document.querySelector(".file-drop-area");
   const dropText = document.getElementById("dropText");
   const uploadBtn = document.getElementById("uploadBtn");
   const resetBtn = document.getElementById("resetBtn");
@@ -90,7 +91,7 @@
   async function bootstrap() {
     setStatus("Loading...", true);
     try {
-      const res = await fetch("/api/bootstrap");
+      const res = await fetch("api/bootstrap");
       const data = await res.json();
       state.documents = data.documents || [];
       state.messages = data.chat || [];
@@ -107,13 +108,8 @@
     }
   }
 
-  uploadBtn.addEventListener("click", () => {
-    fileInput.click();
-  });
-
-  fileInput.addEventListener("change", async () => {
-    const file = fileInput.files[0];
-    if (!file) return;
+  async function uploadFile(file) {
+    if (!file || state.busy) return;
 
     setStatus("Ingesting vector...", true);
     dropText.textContent = `Ingesting: ${file.name}...`;
@@ -121,17 +117,17 @@
     formData.append("file", file);
 
     try {
-      const res = await fetch("/api/upload", {
+      const res = await fetch("api/upload", {
         method: "POST",
         body: formData,
       });
       const data = await res.json();
-      if (data.ok) {
+      if (res.ok && data.ok) {
         state.documents.push(data.doc);
         renderDocuments();
         dropText.textContent = `✓ Ingested ${file.name}`;
       } else {
-        alert(data.error || "Upload rejected by Ingestion Guard.");
+        alert(data.error || data.detail || "Upload rejected by Ingestion Guard.");
         dropText.textContent = "Click or drop .txt/.md memo here";
       }
     } catch (err) {
@@ -141,13 +137,40 @@
       fileInput.value = "";
       setStatus("Ready", false);
     }
+  }
+
+  uploadBtn.addEventListener("click", () => {
+    fileInput.click();
   });
+
+  fileInput.addEventListener("change", () => {
+    const file = fileInput.files[0];
+    if (file) uploadFile(file);
+  });
+
+  if (dropArea) {
+    dropArea.addEventListener("dragover", (e) => {
+      e.preventDefault();
+      dropArea.style.borderColor = "var(--accent)";
+    });
+    dropArea.addEventListener("dragleave", (e) => {
+      e.preventDefault();
+      dropArea.style.borderColor = "";
+    });
+    dropArea.addEventListener("drop", (e) => {
+      e.preventDefault();
+      dropArea.style.borderColor = "";
+      if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+        uploadFile(e.dataTransfer.files[0]);
+      }
+    });
+  }
 
   resetBtn.addEventListener("click", async () => {
     if (!confirm("Reset all uploaded documents and conversation history?")) return;
     setStatus("Resetting...", true);
     try {
-      const res = await fetch("/api/reset", { method: "POST" });
+      const res = await fetch("api/reset", { method: "POST" });
       const data = await res.json();
       state.documents = data.state.documents || [];
       state.messages = [];
@@ -178,7 +201,7 @@
     promptInput.value = "";
 
     try {
-      const res = await fetch("/api/chat", {
+      const res = await fetch("api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: query }),
@@ -203,6 +226,13 @@
       state.busy = false;
       sendBtn.disabled = false;
       setStatus("Ready", false);
+    }
+  });
+
+  promptInput.addEventListener("keydown", (event) => {
+    if (event.key === "Enter" && !event.shiftKey) {
+      event.preventDefault();
+      chatForm.requestSubmit();
     }
   });
 

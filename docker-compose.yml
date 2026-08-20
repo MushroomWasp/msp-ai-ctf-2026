@@ -504,3 +504,32 @@ services:
       interval: 20s
       timeout: 5s
       retries: 3
+
+  challenge18:
+    build:
+      context: .
+      dockerfile: challenges/18-steam-support/Dockerfile
+    env_file: .env
+    environment:
+      PORT: "8118"
+      DATA_DIR: /tmp/data
+      LLM_PROVIDER: ${LLM_PROVIDER:-deepseek}
+      CHALLENGE_FLAG: MSP{st34m_supp0rt_s0c14l_3ng1n33r_g0d_420}
+      ADMIN_TOKEN: ${ADMIN_TOKEN:-local-admin}
+      RATE_LIMIT_PER_MINUTE: ${RATE_LIMIT_PER_MINUTE:-20}
+      RELOAD: ${RELOAD:-true}
+      PYTHONPATH: /app/challenge:/app
+    ports: ["8118:8118"]
+    volumes:
+      - ./shared:/app/shared
+      - ./challenges/18-steam-support:/app/challenge
+    tmpfs: ["/tmp"]
+    read_only: true
+    security_opt: ["no-new-privileges:true"]
+    cap_drop: ["ALL"]
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python3", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8118/health').read()"]
+      interval: 20s
+      timeout: 5s
+      retries: 3
