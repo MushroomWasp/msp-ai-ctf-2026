@@ -1,0 +1,10 @@
+name: ChromaLock
+category: MSP AI CTF
+difficulty: Insane
+points: 500
+port: 8117
+concept: OWASP LLM08 - Vector and Embedding Weaknesses (RAG Poisoning)
+description: >
+  Aegis AI is an enterprise RAG knowledge assistant protecting classified infrastructure keys.
+  Documents in the vector store are guarded by policy rules and an ingestion safety filter.
+flag_env: CHALLENGE_FLAG

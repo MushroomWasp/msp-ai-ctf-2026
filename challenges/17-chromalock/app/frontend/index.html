@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ChromaLock</title>
+    <link rel="stylesheet" href="./static/styles.css" />
+  </head>
+  <body>
+    <div class="shell">
+      <a href="/" class="logo-link" aria-label="Back to challenge lobby">
+        <img src="/AI-HACKING-1.png" alt="MSP logo" class="logo-icon" />
+      </a>
+      <aside class="nav">
+        <p class="eyebrow">Aegis Intelligence</p>
+        <h1>ChromaLock</h1>
+        <p class="note">Level 5 Enclave RAG Knowledge Base & Vector Retrieval System.</p>
+        <button id="resetBtn" type="button">Reset session</button>
+      </aside>
+      <main class="content">
+        <section class="panel upload-panel">
+          <div class="section-top">
+            <div>
+              <p class="eyebrow">Vector Ingestion</p>
+              <h2>Document Ingestion</h2>
+            </div>
+          </div>
+          <form id="uploadForm">
+            <label class="file-drop-area" for="fileInput">
+              <span id="dropText">Click or drop .txt/.md memo here</span>
+              <input id="fileInput" type="file" accept=".txt,.md" style="display: none;" />
+            </label>
+            <button id="uploadBtn" type="button">Ingest memo</button>
+          </form>
+          <div class="section-top" style="margin-top: 16px;">
+            <div>
+              <p class="eyebrow">Vector Store</p>
+              <h3 style="margin: 0; font-size: 1.1rem;">Indexed Documents</h3>
+            </div>
+          </div>
+          <div id="documentList" class="doc-list"></div>
+        </section>
+        <section class="panel answer-panel">
+          <div class="section-top">
+            <div>
+              <p class="eyebrow">Objective</p>
+              <h2>Exfiltrate the Chimera Master Key</h2>
+            </div>
+            <span id="status" class="status">Ready</span>
+          </div>
+          <div id="messages" class="messages empty"></div>
+          <div id="sources" class="sources"></div>
+          <form id="chatForm">
+            <textarea id="prompt" maxlength="6000" rows="4" placeholder="Query the Aegis vector assistant for deployment specifications or policy clearance..."></textarea>
+            <button id="sendBtn" type="submit">Ask Aegis assistant</button>
+          </form>
+          <div id="flag" class="flag hidden"></div>
+        </section>
+      </main>
+    </div>
+    <script src="./static/app.js"></script>
+  </body>
+</html>

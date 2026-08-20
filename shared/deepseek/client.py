@@ -3,6 +3,7 @@ from __future__ import annotations
 import asyncio
 import json
 import logging
+import os
 from dataclasses import dataclass
 from typing import Any
 
@@ -52,7 +53,7 @@ class DeepSeekClient:
         mock_handler: Any | None = None,
         metadata: dict[str, Any] | None = None,
     ) -> CompletionResult:
-        if self.settings.llm_provider == "mock":
+        if self.settings.llm_provider == "mock" or os.getenv("LLM_PROVIDER") == "mock":
             if mock_handler is None:
                 raise DeepSeekResponseError("Mock provider requires a mock handler.")
             return await mock_handler(messages=messages, tools=tools or [], metadata=metadata or {})
